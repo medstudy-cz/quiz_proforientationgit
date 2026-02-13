@@ -38,6 +38,7 @@ type QuizContextType = {
   setReportHtml: React.Dispatch<React.SetStateAction<string | null>>;
   sanityQuiz: SanityQuiz | null;
   setSanityQuiz: React.Dispatch<React.SetStateAction<SanityQuiz | null>>;
+  generateReportHtml: (prompt: string) => Promise<string | null>;
 };
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
@@ -70,6 +71,7 @@ export function QuizProvider({
   const [reportPromise, setReportPromise] = useState<Promise<string | null> | null>(null);
   const [reportHtml, setReportHtml] = useState<string | null>(null);
   const [sanityQuiz, setSanityQuiz] = useState<SanityQuiz | null>(null);
+  
 
   const locale = useLocale() || "uk";
 
@@ -110,6 +112,33 @@ export function QuizProvider({
       : null;
 
 
+  const generateReportHtml = (prompt: string) => {
+    const promise = fetch("/api/report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ promptText: prompt }),
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok || !data.report) {
+          console.error("❌ Report API returned error:", data);
+          return null;
+        }
+
+        const html = typeof data.report === "string" ? data.report : data.report?.report || null;
+
+        setReportHtml(html); // сразу записываем в state
+        return html;
+      })
+      .catch((err) => {
+        console.error("❌ Report fetch failed:", err);
+        return null;
+      });
+
+    setReportPromise(promise); // сохраняем promise в context
+    return promise;
+  };
+
   return (
     <QuizContext.Provider
       value={{
@@ -133,6 +162,7 @@ export function QuizProvider({
         setReportHtml,
         sanityQuiz,
         setSanityQuiz,
+        generateReportHtml,
       }}
     >
       {children}

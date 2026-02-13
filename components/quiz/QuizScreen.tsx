@@ -11,7 +11,18 @@ import { sendEventToServer } from "@/utils/sendEvent";
 import { buildPrompt } from "@/utils/buildPrompt";
 
 export function QuizScreen() {
-  const { questions, role, level, currentIndex, setCurrentIndex, setAnswers, answers, setStep, setReportPromise } = useQuiz();
+  const {
+    questions,
+    role,
+    level,
+    currentIndex,
+    setCurrentIndex,
+    setAnswers,
+    answers,
+    setStep,
+    setReportPromise,
+  } = useQuiz();
+
   const [inputValue, setInputValue] = useState("");
   const t = useTranslations("QuizScreen");
   const locale = useLocale() || "uk";
@@ -39,7 +50,12 @@ export function QuizScreen() {
     const answerValue = typeof opt === "string" ? opt : opt.answers[0];
     const questionId = `${currentIndex + 1}`;
 
-    setAnswers([...answers, { question: questionId, answer: answerValue }]);
+    const updatedAnswers = [
+      ...answers,
+      { question: questionId, answer: answerValue },
+    ];
+
+    setAnswers(updatedAnswers);
 
     const payload = {
       step: "quiz_step_complete",
@@ -54,48 +70,50 @@ export function QuizScreen() {
     if (currentIndex + 1 < questionList.length) {
       setCurrentIndex(currentIndex + 1);
       setInputValue("");
-    } else {
-      const finalPrompt = buildPrompt({ role: role!, level: level!, answers: [...answers, { question: `q${currentIndex}`, answer: opt }], locale: locale as "en" | "uk" | "ru" });
-
-      const reportPromise = (async () => {
-        try {
-          const res = await fetch("/api/report", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ promptText: finalPrompt }),
-          });
-          const data = await res.json();
-          if (res.ok && data?.report?.candidates?.[0]?.content?.parts?.[0]?.text) {
-            return data.report.candidates[0].content.parts[0].text
-              .replace(/```html\s*/, "")
-              .replace(/```/, "")
-              .replace(/<head[\s\S]*?<\/head>/gi, "")
-              .replace(/<body[^>]*>/gi, "")
-              .replace(/<\/body>/gi, "")
-              .replace(/<\/?html[^>]*>/gi, "")
-              .trim();
-          }
-        } catch (e) {
-          console.error("❌ Gemini report error:", e);
-        }
-        return null;
-      })();
-
-      setReportPromise(reportPromise);
-
-      const quizCompletePayload = {
-        step: "Quiz_complete",
-        completion_time: Math.round(performance.now() / 1000),
-        user_role: role,
-        education_level: level,
-      };
-
-      trackEvent("Quiz_complete", quizCompletePayload);
-      sendEventToServer(quizCompletePayload);
-
-
-      setStep("form");
+      return;
     }
+
+    const finalPrompt = buildPrompt({
+      role: role!,
+      level: level!,
+      answers: updatedAnswers,
+      locale: locale as "en" | "uk" | "ru",
+    });
+
+    const reportPromise = (async () => {
+      try {
+        const res = await fetch("/api/report", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ promptText: finalPrompt }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          console.error("❌ API error:", data);
+          return null;
+        }
+
+        return data.report || null;
+      } catch (e) {
+        console.error("❌ Gemini fetch error:", e);
+        return null;
+      }
+    })();
+
+    setReportPromise(reportPromise);
+
+    const quizCompletePayload = {
+      step: "Quiz_complete",
+      completion_time: Math.round(performance.now() / 1000),
+      user_role: role,
+      education_level: level,
+    };
+
+    trackEvent("Quiz_complete", quizCompletePayload);
+    sendEventToServer(quizCompletePayload);
+
+    setStep("form");
   };
 
   if (!current) return null;
@@ -103,11 +121,19 @@ export function QuizScreen() {
   return (
     <div className="quiz-container text-[#153060]">
       <div className="flex justify-center">
-        <ProgressBar current={currentIndex + 1} total={questionList.length} />
+        <ProgressBar
+          current={currentIndex + 1}
+          total={questionList.length}
+        />
       </div>
+
       <p className="text-sm mb-4">
-        {t("progress", { current: currentIndex + 1, total: questionList.length })}
+        {t("progress", {
+          current: currentIndex + 1,
+          total: questionList.length,
+        })}
       </p>
+
       <h2 className="text-xl sm:text-2xl font-bold text-left mb-6">
         {current.question}
       </h2>
@@ -135,6 +161,7 @@ export function QuizScreen() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
+
           <Button
             className="btn btn-primary w-full sm:w-auto mt-3"
             disabled={inputValue.trim().length < 5}

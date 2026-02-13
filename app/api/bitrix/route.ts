@@ -6,24 +6,21 @@ const bitrix = Bitrix(process.env.SEND_LEADS || "");
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-
-    const lead = await bitrix.leads.create({
-      TITLE: body.title,
+    const leadData: any = {
+/*       TITLE: body.title, */
       NAME: body.name,
-      HAS_EMAIL: "Y",
-      EMAIL: [{ VALUE_TYPE: "WORK", VALUE: body.email }] as any,
-      ANSWERS: body.report + " " + body.answers,
-      // Источник
+/*       HAS_EMAIL: "Y",
+      EMAIL: [{ VALUE_TYPE: "WORK", VALUE: body.email }],
+      COMMENTS: body.report ? body.report + "\n" + body.answers : body.answers, */
       SOURCE_ID: body.source_id,
-      
-      // UTM
-      UTM_SOURCE: body.utm?.source,
-      UTM_MEDIUM: body.utm?.medium,
-      UTM_CAMPAIGN: body.utm?.campaign,
-      UTM_CONTENT: body.utm?.content,
-      UTM_TERM: body.utm?.term,
-    });
+      UTM_SOURCE: body.utm?.source || "",
+      UTM_MEDIUM: body.utm?.medium || "",
+      UTM_CAMPAIGN: body.utm?.campaign || "",
+      UTM_CONTENT: body.utm?.content || "",
+      UTM_TERM: body.utm?.term || "",
+    };
 
+    const lead = await bitrix.leads.create(leadData);
 
     return NextResponse.json({ success: true, lead });
   } catch (err: any) {

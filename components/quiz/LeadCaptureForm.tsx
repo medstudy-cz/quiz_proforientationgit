@@ -14,7 +14,7 @@ export function LeadCaptureForm({
 }: {
   onSubmit: (data: { name: string; email: string }) => void;
 }) {
-  const { answers, setStep, role, level, reportPromise, reportHtml, setReportHtml } = useQuiz();
+  const { answers, setStep, role, level, reportPromise, reportHtml, setReportHtml, generateReportHtml } = useQuiz();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const t = useTranslations("LeadCaptureForm");
@@ -37,7 +37,6 @@ export function LeadCaptureForm({
 
 
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -48,65 +47,68 @@ export function LeadCaptureForm({
     try {
       setLoading(true);
 
-      let finalHtml = reportHtml;
+      let finalHtml: string | null = reportHtml ?? null;
 
+      // если html ещё не записался в state — ждём промис
       if (!finalHtml && reportPromise) {
-        for (const delay of [0, 2000, 4000, 8000]) {
-          if (delay) await new Promise((r) => setTimeout(r, delay));
-          finalHtml = await Promise.race([
-            reportPromise,
-            new Promise<string | null>((resolve) =>
-              setTimeout(() => resolve(null), 5000)
-            ),
-          ]);
-          if (finalHtml) {
-            setReportHtml(finalHtml);
-            break;
-          }
+        try {
+          finalHtml = await reportPromise;
+          setReportHtml(finalHtml);
+        } catch (err) {
+          console.error("❌ reportPromise failed:", err);
         }
       }
 
       if (!finalHtml) {
         reportError = "Report generation error, the email was not sent.";
+        console.error("❌ REPORT ERROR:", reportError);
         trackEvent("generate_report_error", { error_message: reportError });
         sendEventToServer({ step: "generate_report_error", error_message: reportError } as any);
       }
 
       const tasks: Promise<any>[] = [];
 
-      //  email
-      if (finalHtml) {
-        tasks.push(
-          fetch("/api/sendEmail", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name,
-              email,
-              html: finalHtml,
-              subject: t("subject"),
-            }),
-          })
-            .then(async (res) => {
-              if (res.ok) {
-                trackEvent("email_sent", { step: "email_sent", type: "report" });
-              } else {
-                emailSendError = "Email send returned non-OK status.";
-                trackEvent("email_sent", { step: "email_sent", type: "fallback", error_message: emailSendError });
-                sendEventToServer({ step: "email_sent", error_message: emailSendError } as any);
-              }
-              return res.json();
-            })
-            .catch((err) => {
-              emailSendError = (err as Error).message || "Unknown email send error";
-              trackEvent("email_sent", { step: "email_sent", type: "fallback", error_message: emailSendError });
-              sendEventToServer({ step: "email_send_error", error_message: emailSendError } as any);
-              console.error("❌ Email send error:", err);
-            })
-        );
-      }
+      tasks.push(
+        fetch("/api/sendEmail", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            subject: t("subject"),
+            html: finalHtml || "No report generated",
+          }),
+        })
+          .then(async (res) => {
+            const json = await res.json();
 
-      //  Bitrix
+            if (!res.ok) {
+              emailSendError = "Email send returned non-OK status.";
+              trackEvent("email_send_error", {
+                error_message: emailSendError,
+              });
+              sendEventToServer({
+                step: "email_send_error",
+                error_message: emailSendError,
+              } as any);
+            } else {
+              trackEvent("email_sent", { type: "report" });
+            }
+          })
+          .catch((err) => {
+            emailSendError = err?.message || "Unknown email send error";
+            console.error("❌ Email fetch error:", err);
+
+            trackEvent("email_send_error", {
+              error_message: emailSendError,
+            });
+            sendEventToServer({
+              step: "email_send_error",
+              error_message: emailSendError,
+            } as any);
+          })
+      );
+
       tasks.push(
         fetch("/api/bitrix", {
           method: "POST",
@@ -115,22 +117,32 @@ export function LeadCaptureForm({
             title: "Quiz Lead",
             name,
             email,
-            source_id: "23",
+            source_id: 15,
             answers:
-              reportError + emailSendError + formatAnswers(answers, locale as "en" | "uk" | "ru"),
+              reportError +
+              emailSendError +
+              formatAnswers(answers, locale as "en" | "uk" | "ru"),
             utm: getUTMParams(),
           }),
         })
+          .then((res) => {
+            console.log("📦 Bitrix response status:", res.status);
+          })
           .catch((err) => {
-            bitrixSendError = (err as Error).message || "Unknown Bitrix send error";
-            trackEvent("bitrix_send_error", { error_message: bitrixSendError });
-            sendEventToServer({ step: "bitrix_send_error", error_message: bitrixSendError } as any);
-            console.error("❌ Bitrix send error:", err);
+            bitrixSendError = err?.message || "Unknown Bitrix send error";
+            console.error("❌ Bitrix error:", err);
+
+            trackEvent("bitrix_send_error", {
+              error_message: bitrixSendError,
+            });
+            sendEventToServer({
+              step: "bitrix_send_error",
+              error_message: bitrixSendError,
+            } as any);
           })
       );
 
       await Promise.allSettled(tasks);
-
 
       const leadPayload = {
         step: "Lead_submit",
@@ -139,19 +151,26 @@ export function LeadCaptureForm({
         name,
         email,
       };
+
       trackEvent("Lead_submit", leadPayload);
       sendEventToServer(leadPayload);
 
       setStep("thankyou");
       onSubmit({ name, email });
-    } catch (err) {
+
+    } catch (err: any) {
+      console.error("🔥 SUBMIT CRASH:", err);
+
       trackEvent("contact_form_submit", {
         step: "contact_form_submit",
         status: "error",
-        error_message: (err as Error).message,
+        error_message: err?.message,
       });
-      sendEventToServer({ step: "contact_form_submit", error_message: (err as Error).message } as any);
-      console.error("Error during submit:", err);
+
+      sendEventToServer({
+        step: "contact_form_submit",
+        error_message: err?.message,
+      } as any);
     } finally {
       setLoading(false);
     }
