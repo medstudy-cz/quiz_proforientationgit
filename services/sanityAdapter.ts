@@ -55,16 +55,32 @@ function convertQuestionsList(
   locale: 'en' | 'ru' | 'uk'
 ): Question[] {
   if (!questions || questions.length === 0) {
+    console.log('⚠️ convertQuestionsList: пустой массив вопросов');
     return []
   }
+
+  console.log('🔍 convertQuestionsList input:', {
+    questionsCount: questions.length,
+    firstQuestion: questions[0],
+    allAreReferences: questions.every(q => '_ref' in q && !('title' in q))
+  });
 
   // Фильтруем только загруженные вопросы (не ссылки)
   const loadedQuestions = questions.filter(
     (q): q is SanityQuestion => '_id' in q && 'title' in q
   )
 
+  console.log('📦 Loaded questions:', {
+    total: questions.length,
+    loaded: loadedQuestions.length,
+    references: questions.length - loadedQuestions.length
+  });
+
   // Преобразуем вопросы напрямую (теперь все SimpleQuestion)
-  return loadedQuestions.map((q) => convertSanityQuestionToAppFormat(q, locale))
+  const converted = loadedQuestions.map((q) => convertSanityQuestionToAppFormat(q, locale));
+  console.log('✅ Converted questions:', converted.length);
+  
+  return converted;
 }
 
 /**
@@ -75,6 +91,15 @@ export function adaptSanityQuizToQuestionBank(
   locale: 'en' | 'ru' | 'uk'
 ): QuestionBankLanguage {
   const { questions } = quiz
+
+  console.log('🔍 Debug adaptSanityQuizToQuestionBank:', {
+    locale,
+    questionsStructure: questions,
+    student_grade_9: questions.student_grade_9?.[locale],
+    student_grade_11: questions.student_grade_11?.[locale],
+    student_bachelor: questions.student_bachelor?.[locale],
+    parent: questions.parent?.[locale]
+  });
 
   const result = {
     student: {
@@ -96,6 +121,8 @@ export function adaptSanityQuizToQuestionBank(
       all: convertQuestionsList(questions.parent?.[locale], locale),
     },
   }
+
+  console.log('✅ Converted result:', result);
 
   return result
 }

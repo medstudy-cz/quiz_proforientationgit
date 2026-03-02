@@ -44,7 +44,7 @@ type RequestState = {
 const Board = ({data, modal: bundle}: BoardTypes) => {
     const router = useRouter();
     const params = useSearchParams();
-
+ 
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");

@@ -29,11 +29,19 @@ export async function getQuestions(
 
   // Загрузка из Sanity CMS
   if (source === "sanity") {
+    console.log('🔍 getQuestions: Loading from Sanity', { sanitySlug, locale });
     let quiz;
 
     if (sanitySlug) {
       // Если slug указан - загружаем конкретный квиз
+      console.log('📦 Loading quiz by slug:', sanitySlug);
       quiz = await getQuizBySlug(sanitySlug);
+      console.log('📦 Quiz loaded:', quiz ? 'success' : 'failed', quiz ? { 
+        id: quiz._id, 
+        slug: quiz.slug?.current,
+        isActive: quiz.isActive,
+        questionsCount: Object.keys(quiz.questions || {}).length
+      } : null);
 
       if (!quiz) {
         throw new Error(`Quiz with slug "${sanitySlug}" not found in Sanity`);
@@ -44,8 +52,10 @@ export async function getQuestions(
       }
     } else {
       // Если slug не указан - берем первый активный квиз
+      console.log('📦 Loading first active quiz');
       const { getQuizzes } = await import("@/sanity/lib/api");
       const quizzes = await getQuizzes();
+      console.log('📦 Found quizzes:', quizzes.length, quizzes.map(q => ({ slug: q.slug.current, isActive: q.isActive })));
 
       if (quizzes.length === 0) {
         throw new Error("No active quizzes found in Sanity");
@@ -53,14 +63,23 @@ export async function getQuestions(
 
       // Берем первый квиз и загружаем его полностью
       const firstQuizSlug = quizzes[0].slug.current;
+      console.log('📦 Loading quiz by slug:', firstQuizSlug);
       quiz = await getQuizBySlug(firstQuizSlug);
+      console.log('📦 Quiz loaded:', quiz ? 'success' : 'failed', quiz ? { 
+        id: quiz._id, 
+        slug: quiz.slug?.current,
+        isActive: quiz.isActive,
+        questionsCount: Object.keys(quiz.questions || {}).length
+      } : null);
 
       if (!quiz) {
         throw new Error("Failed to load quiz from Sanity");
       }
     }
 
-    return adaptSanityQuizToQuestionBank(quiz, locale);
+    const adapted = adaptSanityQuizToQuestionBank(quiz, locale);
+    console.log('✅ Adapted questions:', adapted);
+    return adapted;
   }
 
   throw new Error("Unsupported source");
