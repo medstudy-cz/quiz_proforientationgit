@@ -81,16 +81,23 @@ export function QuizProvider({
       setError(null);
 
       try {
+        console.log('🔄 Loading quiz data:', { finalQuizSource, locale, finalSanitySlug });
+        
         // Если используем Sanity, загружаем полные данные квиза
         if (finalQuizSource === "sanity" && finalSanitySlug) {
           const quiz = await getSanityQuiz(finalSanitySlug);
+          console.log('📦 Loaded Sanity quiz:', quiz);
           if (quiz) {
             setSanityQuiz(quiz);
           }
+        } else if (finalQuizSource === "sanity") {
+          // Если slug не указан, getQuestions сам найдет первый квиз
+          console.log('📦 Loading quiz without slug (will use first active)');
         }
 
         // Загружаем вопросы в формате приложения
         const data = await getQuestions(finalQuizSource, locale, finalSanitySlug);
+        console.log('✅ Loaded questions data:', data);
         setQuestions(data);
       } catch (err: any) {
         console.error("❌ Failed to load quiz data:", err);

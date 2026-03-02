@@ -30,11 +30,23 @@ export function QuizScreen() {
   const roleQuestions = questions?.[role as keyof typeof questions] || {};
   let questionList: any[] = [];
 
+  // Добавлено логирование для отладки
+  console.log('🔍 Debug QuizScreen:', {
+    role,
+    level,
+    questions,
+    roleQuestions,
+    hasLevel: level && (roleQuestions as Record<string, any>)[level],
+    levelData: level ? (roleQuestions as Record<string, any>)[level] : null
+  });
+
   if (level && (roleQuestions as Record<string, any>)[level]) {
     questionList = (roleQuestions as Record<string, any>)[level];
   } else if ((roleQuestions as Record<string, any>)["all"]) {
     questionList = (roleQuestions as Record<string, any>)["all"];
   }
+
+  console.log('📋 Question list:', questionList, 'length:', questionList.length);
 
   const current = questionList[currentIndex];
 

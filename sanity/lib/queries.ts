@@ -50,7 +50,7 @@ export const quizWithOrderedQuestionsQuery = groq`
     analytics,
     "questions": {
       "student_grade_9": {
-        "en": student_grade_9.en[]-> {
+        "en": questions.student_grade_9.en[]-> {
           _id,
           title,
           language,
@@ -59,7 +59,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "ru": student_grade_9.ru[]-> {
+        "ru": questions.student_grade_9.ru[]-> {
           _id,
           title,
           language,
@@ -68,7 +68,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": student_grade_9.uk[]-> {
+        "uk": questions.student_grade_9.uk[]-> {
           _id,
           title,
           language,
@@ -79,7 +79,7 @@ export const quizWithOrderedQuestionsQuery = groq`
         }
       },
       "student_grade_11": {
-        "en": student_grade_11.en[]-> {
+        "en": questions.student_grade_11.en[]-> {
           _id,
           title,
           language,
@@ -88,7 +88,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "ru": student_grade_11.ru[]-> {
+        "ru": questions.student_grade_11.ru[]-> {
           _id,
           title,
           language,
@@ -97,7 +97,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": student_grade_11.uk[]-> {
+        "uk": questions.student_grade_11.uk[]-> {
           _id,
           title,
           language,
@@ -108,7 +108,7 @@ export const quizWithOrderedQuestionsQuery = groq`
         }
       },
       "student_bachelor": {
-        "en": student_bachelor.en[]-> {
+        "en": questions.student_bachelor.en[]-> {
           _id,
           title,
           language,
@@ -117,7 +117,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "ru": student_bachelor.ru[]-> {
+        "ru": questions.student_bachelor.ru[]-> {
           _id,
           title,
           language,
@@ -126,7 +126,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": student_bachelor.uk[]-> {
+        "uk": questions.student_bachelor.uk[]-> {
           _id,
           title,
           language,
@@ -137,7 +137,7 @@ export const quizWithOrderedQuestionsQuery = groq`
         }
       },
       "parent": {
-        "en": parent.en[]-> {
+        "en": questions.parent.en[]-> {
           _id,
           title,
           language,
@@ -146,7 +146,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "ru": parent.ru[]-> {
+        "ru": questions.parent.ru[]-> {
           _id,
           title,
           language,
@@ -155,7 +155,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": parent.uk[]-> {
+        "uk": questions.parent.uk[]-> {
           _id,
           title,
           language,
