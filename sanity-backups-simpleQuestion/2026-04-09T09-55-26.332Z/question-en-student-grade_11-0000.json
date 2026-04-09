@@ -1,0 +1,38 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-student-grade_11-0000",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [
+        "MED",
+        "NAT"
+      ],
+      "text": "Biology and Chemistry"
+    },
+    {
+      "tags": [
+        "TECH"
+      ],
+      "text": "Physics and Mathematics"
+    },
+    {
+      "tags": [
+        "HUM"
+      ],
+      "text": "History and foreign languages"
+    },
+    {
+      "tags": [
+        "ECO"
+      ],
+      "text": "Mathematics and Geography/English"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "Which exam preparation direction (ZNO/NMT) is closest to you?",
+  "type": "single"
+}

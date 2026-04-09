@@ -1,0 +1,35 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-parent-all-0000",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [
+        "TECH",
+        "ECO"
+      ],
+      "text": "Guaranteed employment after graduation"
+    },
+    {
+      "tags": [
+        "HUM",
+        "MED"
+      ],
+      "text": "University prestige and quality of education"
+    },
+    {
+      "tags": [],
+      "text": "Safety and comfort of living in the country"
+    },
+    {
+      "tags": [],
+      "text": "Minimal financial costs for education and living"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "What is your main priority when choosing education for your child?",
+  "type": "single"
+}

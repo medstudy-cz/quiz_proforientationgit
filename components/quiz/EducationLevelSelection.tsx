@@ -13,7 +13,15 @@ export function EducationLevelSelection() {
   if (loading) return <p>Loading...</p>;
   if (error || !questions || !role) return <p>Error loading questions</p>;
 
-  const levels = Object.keys((questions as Record<string, any>)?.[role] || {});
+  const studentLevels = ["grade_9", "grade_11", "bachelor"] as const;
+  const levels =
+    role === "student"
+      ? studentLevels.filter(
+          (key) =>
+            Array.isArray((questions as Record<string, any>)?.student?.[key]) &&
+            (questions as Record<string, any>).student[key].length > 0
+        )
+      : Object.keys((questions as Record<string, any>)?.[role] || {});
 
 
   const handleSelect = (level: string) => {

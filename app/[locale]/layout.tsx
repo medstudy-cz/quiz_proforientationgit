@@ -5,7 +5,7 @@ import { fontSans } from "@/config/fonts";
 import clsx from "clsx";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { QuizProvider } from "@/context/QuizContext";
+import { QuizProviderFromRoute } from "@/components/QuizProviderFromRoute";
 import Script from "next/script";
 import { GAInit } from "@/components/GAInit";
 import CookieConsent from "@/components/CookieConsent";
@@ -39,11 +39,11 @@ export default async function RootLayout({ children, params }: RootLayoutParams)
         )}
       >
         <NextIntlClientProvider locale={params.locale} messages={messages}>
-          <QuizProvider>
+          <QuizProviderFromRoute>
             {children}
             {gaId && <GAInit />}
             <CookieConsent />
-          </QuizProvider>
+          </QuizProviderFromRoute>
         </NextIntlClientProvider>
       </body>
     </html>

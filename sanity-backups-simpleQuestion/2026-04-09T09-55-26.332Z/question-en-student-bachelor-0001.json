@@ -1,0 +1,35 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-student-bachelor-0001",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [
+        "TECH",
+        "ECO"
+      ],
+      "text": "Practical, focused on projects and internships"
+    },
+    {
+      "tags": [
+        "MED",
+        "NAT"
+      ],
+      "text": "Academic, with deep theory and research"
+    },
+    {
+      "tags": [],
+      "text": "Combined, balanced format"
+    },
+    {
+      "tags": [],
+      "text": "Evening or part-time to combine with work"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "Which study format suits you best?",
+  "type": "single"
+}

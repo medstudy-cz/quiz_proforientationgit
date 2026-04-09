@@ -19,8 +19,7 @@
       "options": {
         "grade_9": "After 9th grade",
         "grade_11": "After 11th grade",
-        "bachelor": "Bachelor's degree",
-        "undecided": "Not decided yet"
+        "bachelor": "Bachelor's degree"
       }
     },
     "parent": {

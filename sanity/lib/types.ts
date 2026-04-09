@@ -74,6 +74,19 @@ export interface RolePrompts {
   parent?: LocalizedText
 }
 
+/** Optional per-locale strings for start screen; empty = use app locale JSON */
+export type LocalizedStringField = Partial<Record<'en' | 'ru' | 'uk', string>>
+
+export interface QuizStartScreen {
+  title?: LocalizedStringField
+  description?: LocalizedStringField
+  button?: LocalizedStringField
+  footer?: LocalizedStringField
+  feature1?: LocalizedStringField
+  feature2?: LocalizedStringField
+  feature3?: LocalizedStringField
+}
+
 export interface RoleQuestions {
   student_grade_9?: {
     en?: Array<Question | { _ref: string; _type: string }>
@@ -104,6 +117,7 @@ export interface Quiz {
   }
   title: LocalizedText
   description?: LocalizedText
+  startScreen?: QuizStartScreen
   isActive: boolean
   aiPrompts: RolePrompts
   questions: RoleQuestions

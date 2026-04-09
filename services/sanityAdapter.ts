@@ -115,7 +115,6 @@ export function adaptSanityQuizToQuestionBank(
         questions.student_bachelor?.[locale],
         locale
       ),
-      undecided: [], // Нет в новой структуре
     },
     parent: {
       all: convertQuestionsList(questions.parent?.[locale], locale),
