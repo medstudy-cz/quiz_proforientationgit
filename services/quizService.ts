@@ -1,10 +1,45 @@
-
 import { questions } from "@/dictionaries/quizDictionary";
-import type { QuestionBank, QuestionBankLanguage } from "@/dictionaries/quizDictionary";
-import { getQuizBySlug } from "@/sanity/lib/api";
+import type { QuestionBankLanguage } from "@/dictionaries/quizDictionary";
+import { getQuizBySlug, getQuizzes } from "@/sanity/lib/api";
+import type { Quiz } from "@/sanity/lib/types";
 import { adaptSanityQuizToQuestionBank } from "./sanityAdapter";
 
 export type QuizSource = "local" | "sanity";
+
+/** Slug из URL или первый активный квиз в Sanity */
+export async function resolveSanityQuizSlug(sanitySlug?: string): Promise<string> {
+  if (sanitySlug?.trim()) return sanitySlug.trim();
+
+  const quizzes = await getQuizzes();
+  if (quizzes.length === 0) {
+    throw new Error("No active quizzes found in Sanity");
+  }
+  const first = quizzes[0].slug?.current;
+  if (!first) {
+    throw new Error("Active quiz has no slug");
+  }
+  return first;
+}
+
+/** Одна загрузка квиза из Sanity + адаптация вопросов */
+export async function fetchActiveSanityQuiz(
+  lang: string,
+  sanitySlug?: string
+): Promise<{ quiz: Quiz; data: QuestionBankLanguage }> {
+  const locale = lang as "en" | "ru" | "uk";
+  const slug = await resolveSanityQuizSlug(sanitySlug);
+  const quiz = await getQuizBySlug(slug);
+
+  if (!quiz) {
+    throw new Error(`Quiz with slug "${slug}" not found in Sanity`);
+  }
+  if (!quiz.isActive) {
+    throw new Error(`Quiz "${slug}" is not active`);
+  }
+
+  const data = adaptSanityQuizToQuestionBank(quiz, locale);
+  return { quiz, data };
+}
 
 /**
  * Получает вопросы из выбранного источника
@@ -29,57 +64,16 @@ export async function getQuestions(
 
   // Загрузка из Sanity CMS
   if (source === "sanity") {
-    console.log('🔍 getQuestions: Loading from Sanity', { sanitySlug, locale });
-    let quiz;
-
-    if (sanitySlug) {
-      // Если slug указан - загружаем конкретный квиз
-      console.log('📦 Loading quiz by slug:', sanitySlug);
-      quiz = await getQuizBySlug(sanitySlug);
-      console.log('📦 Quiz loaded:', quiz ? 'success' : 'failed', quiz ? { 
-        id: quiz._id, 
-        slug: quiz.slug?.current,
-        isActive: quiz.isActive,
-        questionsCount: Object.keys(quiz.questions || {}).length
-      } : null);
-
-      if (!quiz) {
-        throw new Error(`Quiz with slug "${sanitySlug}" not found in Sanity`);
-      }
-
-      if (!quiz.isActive) {
-        throw new Error(`Quiz "${sanitySlug}" is not active`);
-      }
-    } else {
-      // Если slug не указан - берем первый активный квиз
-      console.log('📦 Loading first active quiz');
-      const { getQuizzes } = await import("@/sanity/lib/api");
-      const quizzes = await getQuizzes();
-      console.log('📦 Found quizzes:', quizzes.length, quizzes.map(q => ({ slug: q.slug.current, isActive: q.isActive })));
-
-      if (quizzes.length === 0) {
-        throw new Error("No active quizzes found in Sanity");
-      }
-
-      // Берем первый квиз и загружаем его полностью
-      const firstQuizSlug = quizzes[0].slug.current;
-      console.log('📦 Loading quiz by slug:', firstQuizSlug);
-      quiz = await getQuizBySlug(firstQuizSlug);
-      console.log('📦 Quiz loaded:', quiz ? 'success' : 'failed', quiz ? { 
-        id: quiz._id, 
-        slug: quiz.slug?.current,
-        isActive: quiz.isActive,
-        questionsCount: Object.keys(quiz.questions || {}).length
-      } : null);
-
-      if (!quiz) {
-        throw new Error("Failed to load quiz from Sanity");
-      }
-    }
-
-    const adapted = adaptSanityQuizToQuestionBank(quiz, locale);
-    console.log('✅ Adapted questions:', adapted);
-    return adapted;
+    console.log("🔍 getQuestions: Loading from Sanity", { sanitySlug, locale });
+    const { quiz, data } = await fetchActiveSanityQuiz(lang, sanitySlug);
+    console.log("📦 Quiz loaded:", {
+      id: quiz._id,
+      slug: quiz.slug?.current,
+      isActive: quiz.isActive,
+      questionsCount: Object.keys(quiz.questions || {}).length,
+    });
+    console.log("✅ Adapted questions:", data);
+    return data;
   }
 
   throw new Error("Unsupported source");

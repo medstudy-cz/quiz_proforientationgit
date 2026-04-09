@@ -1,0 +1,35 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-student-bachelor-0000",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [],
+      "text": "Deepen knowledge in your specialty for career growth"
+    },
+    {
+      "tags": [
+        "TECH",
+        "ECO"
+      ],
+      "text": "Change specialty to a more promising one"
+    },
+    {
+      "tags": [],
+      "text": "Obtain a European diploma to work in the EU"
+    },
+    {
+      "tags": [
+        "MED",
+        "NAT"
+      ],
+      "text": "Engage in scientific activity, enroll in a PhD program"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "What is your main goal in entering a master's program?",
+  "type": "single"
+}

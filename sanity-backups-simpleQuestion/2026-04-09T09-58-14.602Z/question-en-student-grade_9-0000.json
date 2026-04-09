@@ -1,0 +1,39 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-student-grade_9-0000",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [
+        "NAT",
+        "MED"
+      ],
+      "text": "How the world and nature work (biology, chemistry)"
+    },
+    {
+      "tags": [
+        "TECH"
+      ],
+      "text": "How technology and computers work (IT, physics)"
+    },
+    {
+      "tags": [
+        "HUM"
+      ],
+      "text": "How people and society interact (history, languages, law)"
+    },
+    {
+      "tags": [
+        "ECO",
+        "TECH"
+      ],
+      "text": "How money and business work (math, economics)"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "What are you most interested in studying?",
+  "type": "single"
+}

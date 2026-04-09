@@ -20,7 +20,6 @@ export interface QuestionBankLanguage {
     grade_9: Question[];
     grade_11: Question[];
     bachelor: Question[];
-    undecided: Question[];
   };
   parent: {
     
@@ -114,32 +113,6 @@ export const questions: QuestionBank = {
         {
           type: "open-ended",
           question: "Опишіть коротко ваш попередній досвід (освіта, робота) та очікування від магістерської програми."
-        }
-      ],
-      undecided: [
-        {
-          type: "multiple-choice",
-          question: "Який із цих видів діяльності приваблює тебе найбільше?",
-          options: [
-            { answers: ["Допомагати та лікувати"], tags: ["MED", "NAT"] },
-            { answers: ["Винаходити та будувати"], tags: ["TECH"] },
-            { answers: ["Спілкуватися та домовлятися"], tags: ["HUM"] },
-            { answers: ["Аналізувати та рахувати"], tags: ["ECO"] }
-          ]
-        },
-        {
-          type: "multiple-choice",
-          question: "Що для тебе важливіше в роботі?",
-          options: [
-            { answers: ["Стабільність та соціальна значущість"], tags: ["MED", "HUM"] },
-            { answers: ["Високий дохід та кар'єрне зростання"], tags: ["ECO"] },
-            { answers: ["Творчість та самовираження"], tags: ["HUM"] },
-            { answers: ["Можливість постійно вчитися новому"], tags: ["TECH", "NAT"] }
-          ]
-        },
-        {
-          type: "open-ended",
-          question: "Якби в тебе була будь-яка можливість, яку одну проблему у світі ти б хотів(ла) вирішити?"
         }
       ]
     },
@@ -253,34 +226,7 @@ export const questions: QuestionBank = {
           type: "open-ended",
           question: "Кратко опишите ваш предыдущий опыт (образование, работа) и ожидания от магистерской программы."
         }
-      ],
-      undecided: [
-        {
-          type: "multiple-choice",
-          question: "Какой из этих видов деятельности привлекает тебя больше всего?",
-          options: [
-            { answers: ["Помогать и лечить"], tags: ["MED", "NAT"] },
-            { answers: ["Изобретать и строить"], tags: ["TECH"] },
-            { answers: ["Общаться и договариваться"], tags: ["HUM"] },
-            { answers: ["Анализировать и считать"], tags: ["ECO"] }
-          ]
-        },
-        {
-          type: "multiple-choice",
-          question: "Что для тебя важнее всего в работе?",
-          options: [
-            { answers: ["Стабильность и социальная значимость"], tags: ["MED", "HUM"] },
-            { answers: ["Высокий доход и карьерный рост"], tags: ["ECO"] },
-            { answers: ["Творчество и самовыражение"], tags: ["HUM"] },
-            { answers: ["Возможность постоянно учиться новому"], tags: ["TECH", "NAT"] }
-          ]
-        },
-        {
-          type: "open-ended",
-          question: "Если бы у тебя была любая возможность, какую одну проблему в мире ты бы хотел(а) решить?"
-        }
       ]
-
     },
     parent: {
       all: [
@@ -390,32 +336,6 @@ export const questions: QuestionBank = {
         {
           type: "open-ended",
           question: "Briefly describe your previous experience (education, work) and expectations from the master's program."
-        }
-      ],
-      undecided: [
-        {
-          type: "multiple-choice",
-          question: "Which of these activities attracts you the most?",
-          options: [
-            { answers: ["Helping and healing"], tags: ["MED", "NAT"] },
-            { answers: ["Inventing and building"], tags: ["TECH"] },
-            { answers: ["Communicating and negotiating"], tags: ["HUM"] },
-            { answers: ["Analyzing and calculating"], tags: ["ECO"] }
-          ]
-        },
-        {
-          type: "multiple-choice",
-          question: "What is most important for you in a job?",
-          options: [
-            { answers: ["Stability and social significance"], tags: ["MED", "HUM"] },
-            { answers: ["High income and career growth"], tags: ["ECO"] },
-            { answers: ["Creativity and self-expression"], tags: ["HUM"] },
-            { answers: ["Opportunity to constantly learn new things"], tags: ["TECH", "NAT"] }
-          ]
-        },
-        {
-          type: "open-ended",
-          question: "If you had any opportunity, which one world problem would you like to solve?"
         }
       ]
     },

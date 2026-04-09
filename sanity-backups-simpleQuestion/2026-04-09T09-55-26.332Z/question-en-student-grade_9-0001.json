@@ -1,0 +1,38 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-student-grade_9-0001",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [
+        "MED",
+        "HUM"
+      ],
+      "text": "Helping people, solving problems"
+    },
+    {
+      "tags": [
+        "TECH"
+      ],
+      "text": "Creating something new: programs, mechanisms, design"
+    },
+    {
+      "tags": [
+        "HUM"
+      ],
+      "text": "Analyzing information, writing texts, learning languages"
+    },
+    {
+      "tags": [
+        "ECO"
+      ],
+      "text": "Organizing processes, managing a team, calculating"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "What type of tasks do you enjoy the most?",
+  "type": "single"
+}

@@ -1,0 +1,38 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-parent-all-0001",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [
+        "MED",
+        "HUM"
+      ],
+      "text": "Empathy and willingness to help others"
+    },
+    {
+      "tags": [
+        "TECH"
+      ],
+      "text": "Logical thinking and love for technology"
+    },
+    {
+      "tags": [
+        "HUM"
+      ],
+      "text": "Communication skills and humanities inclination"
+    },
+    {
+      "tags": [
+        "ECO"
+      ],
+      "text": "Analytical abilities and interest in business"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "Which talent is most pronounced in your child?",
+  "type": "single"
+}

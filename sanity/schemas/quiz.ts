@@ -45,6 +45,85 @@ export default defineType({
       initialValue: true,
     }),
     defineField({
+      name: 'startScreen',
+      title: 'Start screen copy',
+      type: 'object',
+      description:
+        'Optional texts for the quiz landing/start step. Leave empty to use app defaults (locales).',
+      fields: [
+        {
+          name: 'title',
+          title: 'Title (above card)',
+          type: 'object',
+          fields: [
+            { name: 'en', title: 'English', type: 'string' },
+            { name: 'ru', title: 'Russian', type: 'string' },
+            { name: 'uk', title: 'Ukrainian', type: 'string' },
+          ],
+        },
+        {
+          name: 'description',
+          title: 'Description',
+          type: 'object',
+          fields: [
+            { name: 'en', title: 'English', type: 'text', rows: 4 },
+            { name: 'ru', title: 'Russian', type: 'text', rows: 4 },
+            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 4 },
+          ],
+        },
+        {
+          name: 'button',
+          title: 'Start button',
+          type: 'object',
+          fields: [
+            { name: 'en', title: 'English', type: 'string' },
+            { name: 'ru', title: 'Russian', type: 'string' },
+            { name: 'uk', title: 'Ukrainian', type: 'string' },
+          ],
+        },
+        {
+          name: 'footer',
+          title: 'Footer note',
+          type: 'object',
+          fields: [
+            { name: 'en', title: 'English', type: 'text', rows: 3 },
+            { name: 'ru', title: 'Russian', type: 'text', rows: 3 },
+            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 3 },
+          ],
+        },
+        {
+          name: 'feature1',
+          title: 'Feature 1 (e.g. Free)',
+          type: 'object',
+          fields: [
+            { name: 'en', title: 'English', type: 'string' },
+            { name: 'ru', title: 'Russian', type: 'string' },
+            { name: 'uk', title: 'Ukrainian', type: 'string' },
+          ],
+        },
+        {
+          name: 'feature2',
+          title: 'Feature 2 (e.g. 5 min)',
+          type: 'object',
+          fields: [
+            { name: 'en', title: 'English', type: 'string' },
+            { name: 'ru', title: 'Russian', type: 'string' },
+            { name: 'uk', title: 'Ukrainian', type: 'string' },
+          ],
+        },
+        {
+          name: 'feature3',
+          title: 'Feature 3 (e.g. Expert tips)',
+          type: 'object',
+          fields: [
+            { name: 'en', title: 'English', type: 'string' },
+            { name: 'ru', title: 'Russian', type: 'string' },
+            { name: 'uk', title: 'Ukrainian', type: 'string' },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: 'aiPrompts',
       title: 'AI Analysis Prompts',
       type: 'object',

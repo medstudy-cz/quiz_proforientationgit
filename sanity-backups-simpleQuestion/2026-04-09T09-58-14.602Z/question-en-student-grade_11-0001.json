@@ -1,0 +1,37 @@
+{
+  "_createdAt": "2026-03-01T22:27:27Z",
+  "_id": "question-en-student-grade_11-0001",
+  "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
+  "_type": "simpleQuestion",
+  "_updatedAt": "2026-03-01T22:27:27Z",
+  "answers": [
+    {
+      "tags": [
+        "HUM"
+      ],
+      "text": "The opportunity to get a prestigious diploma"
+    },
+    {
+      "tags": [
+        "TECH",
+        "ECO"
+      ],
+      "text": "Maximum practice and internships during studies"
+    },
+    {
+      "tags": [
+        "MED",
+        "NAT"
+      ],
+      "text": "Strong scientific foundation and opportunity to do research"
+    },
+    {
+      "tags": [],
+      "text": "Affordable tuition and living costs in the city"
+    }
+  ],
+  "language": "en",
+  "required": true,
+  "title": "What is most important for you in your future university?",
+  "type": "single"
+}

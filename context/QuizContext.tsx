@@ -1,6 +1,10 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { getQuestions, getSanityQuiz, type QuizSource } from "@/services/quizService";
+import {
+  getQuestions,
+  fetchActiveSanityQuiz,
+  type QuizSource,
+} from "@/services/quizService";
 import type { QuestionBankLanguage } from "@/dictionaries/quizDictionary";
 import { useLocale } from "next-intl";
 import type { Quiz as SanityQuiz } from "@/sanity/lib/types";
@@ -81,24 +85,26 @@ export function QuizProvider({
       setError(null);
 
       try {
-        console.log('🔄 Loading quiz data:', { finalQuizSource, locale, finalSanitySlug });
-        
-        // Если используем Sanity, загружаем полные данные квиза
-        if (finalQuizSource === "sanity" && finalSanitySlug) {
-          const quiz = await getSanityQuiz(finalSanitySlug);
-          console.log('📦 Loaded Sanity quiz:', quiz);
-          if (quiz) {
-            setSanityQuiz(quiz);
-          }
-        } else if (finalQuizSource === "sanity") {
-          // Если slug не указан, getQuestions сам найдет первый квиз
-          console.log('📦 Loading quiz without slug (will use first active)');
-        }
+        console.log("🔄 Loading quiz data:", {
+          finalQuizSource,
+          locale,
+          finalSanitySlug,
+        });
 
-        // Загружаем вопросы в формате приложения
-        const data = await getQuestions(finalQuizSource, locale, finalSanitySlug);
-        console.log('✅ Loaded questions data:', data);
-        setQuestions(data);
+        if (finalQuizSource === "sanity") {
+          const { quiz, data } = await fetchActiveSanityQuiz(
+            locale,
+            finalSanitySlug
+          );
+          setSanityQuiz(quiz);
+          setQuestions(data);
+          console.log("✅ Loaded Sanity quiz + questions:", quiz?.slug?.current);
+        } else {
+          setSanityQuiz(null);
+          const data = await getQuestions(finalQuizSource, locale, finalSanitySlug);
+          console.log("✅ Loaded questions data:", data);
+          setQuestions(data);
+        }
       } catch (err: any) {
         console.error("❌ Failed to load quiz data:", err);
         setError(err.message || "Failed to load quiz data");
