@@ -176,7 +176,7 @@ export function QuizScreen() {
 
           <Button
             className="btn btn-primary w-full sm:w-auto mt-3"
-            disabled={inputValue.trim().length < 5}
+            disabled={inputValue.trim().length < 2}
             onClick={() => handleAnswer(inputValue.trim())}
           >
             {t("buttonNext")}
