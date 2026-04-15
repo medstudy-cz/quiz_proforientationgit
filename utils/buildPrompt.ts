@@ -62,7 +62,7 @@ export function buildPrompt({
     .replace(/{topDirection}/g, topDirection);
 
   // Инструкция по языку
-  const langInstruction = langInstructions[locale] ?? langInstructions["uk"];
+  const langInstruction = langInstructions[locale] ?? langInstructions["ua"];
 
   // Формируем финальный промт с ответами пользователя
   const finalPrompt = `

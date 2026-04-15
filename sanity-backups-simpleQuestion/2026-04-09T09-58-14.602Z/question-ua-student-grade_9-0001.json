@@ -1,6 +1,6 @@
 {
   "_createdAt": "2026-03-01T22:27:27Z",
-  "_id": "question-uk-student-grade_9-0001",
+  "_id": "question-ua-student-grade_9-0001",
   "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
   "_type": "simpleQuestion",
   "_updatedAt": "2026-03-01T22:27:27Z",
@@ -31,7 +31,7 @@
       "text": "Організовувати процеси, керувати командою, рахувати"
     }
   ],
-  "language": "uk",
+  "language": "ua",
   "required": true,
   "title": "Який тип завдань тобі до душі?",
   "type": "single"

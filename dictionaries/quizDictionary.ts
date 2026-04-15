@@ -28,14 +28,14 @@ export interface QuestionBankLanguage {
 }
 
 export interface QuestionBank {
-  uk: QuestionBankLanguage;
+  ua: QuestionBankLanguage;
   ru: QuestionBankLanguage;
   en: QuestionBankLanguage;
 }
 
 
 export const questions: QuestionBank = {
-  uk: {
+  ua: {
     student: {
       grade_9: [
         {

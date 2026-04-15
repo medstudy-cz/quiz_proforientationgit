@@ -12,7 +12,7 @@ export default defineType({
       fields: [
         { name: 'en', title: 'English', type: 'string' },
         { name: 'ru', title: 'Russian', type: 'string' },
-        { name: 'uk', title: 'Ukrainian', type: 'string' },
+        { name: 'ua', title: 'Ukrainian', type: 'string' },
       ],
       validation: (Rule) => Rule.required(),
     }),
@@ -49,7 +49,7 @@ export default defineType({
           of: [{ type: 'string' }],
         },
         {
-          name: 'uk',
+          name: 'ua',
           title: 'Ukrainian',
           type: 'array',
           of: [{ type: 'string' }],
@@ -65,7 +65,7 @@ export default defineType({
       fields: [
         { name: 'en', title: 'English', type: 'string' },
         { name: 'ru', title: 'Russian', type: 'string' },
-        { name: 'uk', title: 'Ukrainian', type: 'string' },
+        { name: 'ua', title: 'Ukrainian', type: 'string' },
       ],
     }),
     defineField({

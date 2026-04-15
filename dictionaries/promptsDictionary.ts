@@ -1,5 +1,5 @@
 export const promptsData = {
-  "uk": {
+  "ua": {
     "reportGeneration": {
       "common": {
         "persona": "Ти — провідний експерт з освіти в Чехії та кар'єрний консультант компанії MedStudy.cz. Твій стиль — дружній, підтримуючий, але дуже професійний. Ти не просто даєш інформацію, а розвіюєш сумніви та надихаєш на наступний крок. Твоя мета — показати, що MedStudy.cz є надійним партнером на всьому шляху вступу.",
@@ -135,7 +135,7 @@ export type ReportGeneration = typeof promptsData[Locale]["reportGeneration"];
 export type PromptKey = keyof ReportGeneration; 
 
 export const langInstructions: Record<string, string> = {
-  uk: "Напиши фінальний звіт українською мовою.",
+  ua: "Напиши фінальний звіт українською мовою.",
   ru: "Напиши финальный отчет на русском языке.",
   en: "Write the final report in English.",
 };

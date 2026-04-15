@@ -2,10 +2,10 @@ import createMiddleware from 'next-intl/middleware';
 
 export default createMiddleware({
   // поддерживаемые языки
-  locales: ['uk', 'ru', 'en'],
+  locales: ['ua', 'ru', 'en'],
 
   // язык по умолчанию
-  defaultLocale: 'uk'
+  defaultLocale: 'ua'
 });
 
 export const config = {

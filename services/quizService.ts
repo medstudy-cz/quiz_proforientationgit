@@ -26,7 +26,7 @@ export async function fetchActiveSanityQuiz(
   lang: string,
   sanitySlug?: string
 ): Promise<{ quiz: Quiz; data: QuestionBankLanguage }> {
-  const locale = lang as "en" | "ru" | "uk";
+  const locale = lang as "en" | "ru" | "ua";
   const slug = await resolveSanityQuizSlug(sanitySlug);
   const quiz = await getQuizBySlug(slug);
 
@@ -49,10 +49,10 @@ export async function fetchActiveSanityQuiz(
  */
 export async function getQuestions(
   source: QuizSource = "local",
-  lang: string = "uk",
+  lang: string = "ua",
   sanitySlug?: string
 ): Promise<QuestionBankLanguage> {
-  const locale = lang as 'en' | 'ru' | 'uk';
+  const locale = lang as 'en' | 'ru' | 'ua';
 
   // Загрузка из локального файла
   if (source === "local") {

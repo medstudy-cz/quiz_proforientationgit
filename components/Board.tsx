@@ -55,7 +55,7 @@ const Board = ({data, modal: bundle}: BoardTypes) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const phoneInput = usePhoneInput({
-        defaultCountry: "uk",
+        defaultCountry: "ua",
         value: phone,
         onChange: (data) => {
             setPhone(data.phone);
@@ -81,7 +81,7 @@ const Board = ({data, modal: bundle}: BoardTypes) => {
                 if (res.status == 200) {
                     analyticsMainFormSubmitReport("form_submit_orientation")
 
-                    router.push("/uk?thanks=test")
+                    router.push("/ua?thanks=test")
                     // setRequest({state: "done"})
                 } else {
                     setRequest({state: "error", message: res.data?.message})

@@ -31,7 +31,7 @@ NEXT_PUBLIC_QUIZ_SOURCE=local
 Головний документ, який містить:
 - `slug` — ідентифікатор у URL: `/{locale}/{slug}` (наприклад `/ru/medstudy-quiz`). Якщо відкрито лише `/{locale}`, підвантажується перший активний квіз зі списку.
 - `title`, `description` (мультимовні)
-- `startScreen` (опційно) — тексти першого екрана квізу для кожної мови (`en` / `ru` / `uk`): заголовок над карткою, опис, кнопка «Почати», підпис під фічами, три короткі фічі. Порожні поля = брати дефолти з файлів локалізації (`locales/*/common.json`, ключі `StartScreen.*`).
+- `startScreen` (опційно) — тексти першого екрана квізу для кожної мови (`en` / `ru` / `ua`): заголовок над карткою, опис, кнопка «Почати», підпис під фічами, три короткі фічі. Порожні поля = брати дефолти з файлів локалізації (`locales/*/common.json`, ключі `StartScreen.*`).
 - `aiPrompts` - AI промпти для кожної ролі/мови
 - `student_grade_9`, `student_grade_11`, `student_bachelor`, `parent` - масиви посилань на питання
 - `emailSettings` - налаштування email
@@ -40,7 +40,7 @@ NEXT_PUBLIC_QUIZ_SOURCE=local
 ### SimpleQuestion
 Питання квізу:
 - `title` - текст питання
-- `language` - мова (uk/ru/en)
+- `language` - мова (ua/ru/en)
 - `type` - тип: single/multiple/text
 - `answers` - варіанти відповідей з тегами
 - `required` - обов'язкове питання
@@ -110,7 +110,7 @@ const prompt = await buildSanityPrompt(
   'student',      // роль
   'grade_9',      // рівень
   answers,        // відповіді користувача
-  'uk',           // мова
+  'ua',           // мова
   true            // використовувати Sanity для університетів
 );
 ```

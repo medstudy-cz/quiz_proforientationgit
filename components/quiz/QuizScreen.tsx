@@ -25,7 +25,7 @@ export function QuizScreen() {
 
   const [inputValue, setInputValue] = useState("");
   const t = useTranslations("QuizScreen");
-  const locale = useLocale() || "uk";
+  const locale = useLocale() || "ua";
 
   const roleQuestions = questions?.[role as keyof typeof questions] || {};
   let questionList: any[] = [];
@@ -89,7 +89,7 @@ export function QuizScreen() {
       role: role!,
       level: level!,
       answers: updatedAnswers,
-      locale: locale as "en" | "uk" | "ru",
+      locale: locale as "en" | "ua" | "ru",
     });
 
     const reportPromise = (async () => {

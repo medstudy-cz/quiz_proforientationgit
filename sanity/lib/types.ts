@@ -1,13 +1,13 @@
 export interface LocalizedText {
   en: string
   ru: string
-  uk: string
+  ua: string
 }
 
 export interface LocalizedArray {
   en: string[]
   ru: string[]
-  uk: string[]
+  ua: string[]
 }
 
 export type Direction = 'MED' | 'TECH' | 'HUM' | 'ECO' | 'NAT'
@@ -75,7 +75,7 @@ export interface RolePrompts {
 }
 
 /** Optional per-locale strings for start screen; empty = use app locale JSON */
-export type LocalizedStringField = Partial<Record<'en' | 'ru' | 'uk', string>>
+export type LocalizedStringField = Partial<Record<'en' | 'ru' | 'ua', string>>
 
 export interface QuizStartScreen {
   title?: LocalizedStringField
@@ -91,22 +91,22 @@ export interface RoleQuestions {
   student_grade_9?: {
     en?: Array<Question | { _ref: string; _type: string }>
     ru?: Array<Question | { _ref: string; _type: string }>
-    uk?: Array<Question | { _ref: string; _type: string }>
+    ua?: Array<Question | { _ref: string; _type: string }>
   }
   student_grade_11?: {
     en?: Array<Question | { _ref: string; _type: string }>
     ru?: Array<Question | { _ref: string; _type: string }>
-    uk?: Array<Question | { _ref: string; _type: string }>
+    ua?: Array<Question | { _ref: string; _type: string }>
   }
   student_bachelor?: {
     en?: Array<Question | { _ref: string; _type: string }>
     ru?: Array<Question | { _ref: string; _type: string }>
-    uk?: Array<Question | { _ref: string; _type: string }>
+    ua?: Array<Question | { _ref: string; _type: string }>
   }
   parent?: {
     en?: Array<Question | { _ref: string; _type: string }>
     ru?: Array<Question | { _ref: string; _type: string }>
-    uk?: Array<Question | { _ref: string; _type: string }>
+    ua?: Array<Question | { _ref: string; _type: string }>
   }
 }
 

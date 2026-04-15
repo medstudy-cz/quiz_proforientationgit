@@ -136,7 +136,7 @@ The production server runs on port 5050 by default.
 ├── locales/             # Translation files
 │   ├── en/             # English
 │   ├── ru/             # Russian
-│   └── uk/             # Ukrainian
+│   └── ua/             # Ukrainian
 ├── public/             # Static assets
 ├── styles/             # Global styles
 ├── utils/              # Utility functions
@@ -163,7 +163,7 @@ The production server runs on port 5050 by default.
 The application supports three languages:
 - English (en)
 - Russian (ru)
-- Ukrainian (uk)
+- Ukrainian (ua)
 
 Language detection is automatic based on browser preferences, with manual switching available.
 

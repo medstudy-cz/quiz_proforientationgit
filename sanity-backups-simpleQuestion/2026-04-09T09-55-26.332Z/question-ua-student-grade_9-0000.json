@@ -1,6 +1,6 @@
 {
   "_createdAt": "2026-03-01T22:27:27Z",
-  "_id": "question-uk-student-grade_9-0000",
+  "_id": "question-ua-student-grade_9-0000",
   "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
   "_type": "simpleQuestion",
   "_updatedAt": "2026-03-01T22:27:27Z",
@@ -32,7 +32,7 @@
       "text": "Як працюють гроші та бізнес (математика, економіка)"
     }
   ],
-  "language": "uk",
+  "language": "ua",
   "required": true,
   "title": "Що тобі найцікавіше вивчати?",
   "type": "single"

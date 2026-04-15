@@ -6,7 +6,7 @@ import { sendEventToServer } from "@/utils/sendEvent";
 
 export function ThankYouScreen() {
   const t = useTranslations("ThankYouScreen");
-  const locale = useLocale() || "uk";
+  const locale = useLocale() || "ua";
   const fullProgramsUrl = `https://medstudy.cz/${locale}/products/fullprograms`;
 
   useEffect(() => {

@@ -16,7 +16,7 @@ export function QuizClientComponent({ dictionary, lang }: { dictionary: any; lan
 
   return (
     <div>
-      <h1>{lang === "uk" ? "Квіз" : "Quiz"}</h1>
+      <h1>{lang === "ua" ? "Квіз" : "Quiz"}</h1>
       {/* Здесь отрисовываем вопросы */}
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>

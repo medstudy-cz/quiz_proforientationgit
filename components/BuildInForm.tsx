@@ -26,7 +26,7 @@ const BuildInForm = ({bundle} : BuildInFormProps) => {
     const [isAccepted, setIsAccepted] = useState(true)
 
     const phoneInput = usePhoneInput({
-        defaultCountry: "uk",
+        defaultCountry: "ua",
         value: phone,
         onChange: (data) => {
             setPhone(data.phone);
