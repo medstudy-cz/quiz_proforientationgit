@@ -25,7 +25,7 @@ export default defineType({
         list: [
           { title: 'English', value: 'en' },
           { title: 'Russian', value: 'ru' },
-          { title: 'Ukrainian', value: 'uk' },
+          { title: 'Ukrainian', value: 'ua' },
         ],
       },
       description: 'Which language is this question in?',

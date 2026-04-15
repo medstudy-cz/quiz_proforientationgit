@@ -14,17 +14,17 @@ export type ResolvedStartScreenCopy = Record<StartScreenCopyKey, string>;
 type TranslateFn = (key: StartScreenCopyKey) => string;
 
 /**
- * Sanity startScreen overrides per field (en/ru/uk); falls back to next-intl t().
+ * Sanity startScreen overrides per field (en/ru/ua); falls back to next-intl t().
  */
 export function resolveStartScreenCopy(
   locale: string,
   startScreen: QuizStartScreen | undefined,
   t: TranslateFn
 ): ResolvedStartScreenCopy {
-  const loc = (locale === "en" || locale === "ru" || locale === "uk" ? locale : "uk") as
+  const loc = (locale === "en" || locale === "ru" || locale === "ua" ? locale : "ua") as
     | "en"
     | "ru"
-    | "uk";
+    | "ua";
 
   const pick = (field: StartScreenCopyKey): string => {
     const block = startScreen?.[field];

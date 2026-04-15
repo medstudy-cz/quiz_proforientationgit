@@ -1,1 +1,1 @@
-export const acceptedLanguages= ["ru", "uk", "en"];
+export const acceptedLanguages= ["ru", "ua", "en"];

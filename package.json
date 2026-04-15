@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 5050",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sanity:deploy": "sanity deploy",
+    "sanity:migrate-uk-to-ua": "node scripts/migrate-sanity-uk-to-ua.mjs",
+    "sanity:migrate-uk-to-ua:dry": "node scripts/migrate-sanity-uk-to-ua.mjs --dry-run"
   },
   "dependencies": {
     "@2bad/bitrix": "^2.5.1",

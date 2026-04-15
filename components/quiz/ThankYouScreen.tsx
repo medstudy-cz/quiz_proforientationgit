@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { trackEvent } from "@/utils/analytics";
 import { sendEventToServer } from "@/utils/sendEvent";
 
 export function ThankYouScreen() {
   const t = useTranslations("ThankYouScreen");
+  const locale = useLocale() || "ua";
+  const fullProgramsUrl = `https://medstudy.cz/${locale}/products/fullprograms`;
 
   useEffect(() => {
     const payload = { source: "thank_you_page" };
@@ -22,7 +24,7 @@ export function ThankYouScreen() {
         <br />
         {t("message2")}{" "}
         <a
-          href="https://medstudy.cz"
+          href={fullProgramsUrl}
           className="font-bold underline text-[#153060] hover:text-[#153060]/80 transition-colors"
         >
           {t("linkText")}

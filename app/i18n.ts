@@ -1,12 +1,17 @@
 import { getRequestConfig } from 'next-intl/server';
 
-export default getRequestConfig(async ({ locale }) => {
-  // если locale не передан, используем "en" или твой defaultLocale
-  const currentLocale = locale ?? 'uk';
+const loadMessages = {
+  en: () => import("../locales/en/common.json").then((m) => m.default),
+  ru: () => import("../locales/ru/common.json").then((m) => m.default),
+  ua: () => import("../locales/ua/common.json").then((m) => m.default),
+} as const;
 
-  const messages = await import(`../locales/${currentLocale}/common.json`).then(
-    (m) => m.default
-  );
+type AppLocale = keyof typeof loadMessages;
+
+export default getRequestConfig(async ({ locale }) => {
+  const currentLocale = (locale ?? "ua") as AppLocale;
+  const loader = loadMessages[currentLocale] ?? loadMessages.ua;
+  const messages = await loader();
 
   return { locale: currentLocale, messages };
 });

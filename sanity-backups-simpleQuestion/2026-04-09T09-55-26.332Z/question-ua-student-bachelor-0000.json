@@ -1,6 +1,6 @@
 {
   "_createdAt": "2026-03-01T22:27:27Z",
-  "_id": "question-uk-student-bachelor-0000",
+  "_id": "question-ua-student-bachelor-0000",
   "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
   "_type": "simpleQuestion",
   "_updatedAt": "2026-03-01T22:27:27Z",
@@ -28,7 +28,7 @@
       "text": "Зайнятися науковою діяльністю, вступити на PhD"
     }
   ],
-  "language": "uk",
+  "language": "ua",
   "required": true,
   "title": "Що є головною метою вашого вступу до магістратури?",
   "type": "single"

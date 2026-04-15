@@ -77,7 +77,7 @@ export function QuizProvider({
   const [sanityQuiz, setSanityQuiz] = useState<SanityQuiz | null>(null);
   
 
-  const locale = useLocale() || "uk";
+  const locale = useLocale() || "ua";
 
   useEffect(() => {
     const loadQuizData = async () => {

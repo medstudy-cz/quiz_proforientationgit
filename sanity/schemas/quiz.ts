@@ -23,7 +23,7 @@ export default defineType({
       fields: [
         { name: 'en', title: 'English', type: 'string' },
         { name: 'ru', title: 'Russian', type: 'string' },
-        { name: 'uk', title: 'Ukrainian', type: 'string' },
+        { name: 'ua', title: 'Ukrainian', type: 'string' },
       ],
       validation: (Rule) => Rule.required(),
     }),
@@ -34,7 +34,7 @@ export default defineType({
       fields: [
         { name: 'en', title: 'English', type: 'text' },
         { name: 'ru', title: 'Russian', type: 'text' },
-        { name: 'uk', title: 'Ukrainian', type: 'text' },
+        { name: 'ua', title: 'Ukrainian', type: 'text' },
       ],
     }),
     defineField({
@@ -58,7 +58,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'string' },
             { name: 'ru', title: 'Russian', type: 'string' },
-            { name: 'uk', title: 'Ukrainian', type: 'string' },
+            { name: 'ua', title: 'Ukrainian', type: 'string' },
           ],
         },
         {
@@ -68,7 +68,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'text', rows: 4 },
             { name: 'ru', title: 'Russian', type: 'text', rows: 4 },
-            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 4 },
+            { name: 'ua', title: 'Ukrainian', type: 'text', rows: 4 },
           ],
         },
         {
@@ -78,7 +78,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'string' },
             { name: 'ru', title: 'Russian', type: 'string' },
-            { name: 'uk', title: 'Ukrainian', type: 'string' },
+            { name: 'ua', title: 'Ukrainian', type: 'string' },
           ],
         },
         {
@@ -88,7 +88,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'text', rows: 3 },
             { name: 'ru', title: 'Russian', type: 'text', rows: 3 },
-            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 3 },
+            { name: 'ua', title: 'Ukrainian', type: 'text', rows: 3 },
           ],
         },
         {
@@ -98,7 +98,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'string' },
             { name: 'ru', title: 'Russian', type: 'string' },
-            { name: 'uk', title: 'Ukrainian', type: 'string' },
+            { name: 'ua', title: 'Ukrainian', type: 'string' },
           ],
         },
         {
@@ -108,7 +108,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'string' },
             { name: 'ru', title: 'Russian', type: 'string' },
-            { name: 'uk', title: 'Ukrainian', type: 'string' },
+            { name: 'ua', title: 'Ukrainian', type: 'string' },
           ],
         },
         {
@@ -118,7 +118,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'string' },
             { name: 'ru', title: 'Russian', type: 'string' },
-            { name: 'uk', title: 'Ukrainian', type: 'string' },
+            { name: 'ua', title: 'Ukrainian', type: 'string' },
           ],
         },
       ],
@@ -136,7 +136,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'text', rows: 15 },
             { name: 'ru', title: 'Russian', type: 'text', rows: 15 },
-            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 15 },
+            { name: 'ua', title: 'Ukrainian', type: 'text', rows: 15 },
           ],
           description: 'Prompt for 9th grade students',
         },
@@ -147,7 +147,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'text', rows: 15 },
             { name: 'ru', title: 'Russian', type: 'text', rows: 15 },
-            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 15 },
+            { name: 'ua', title: 'Ukrainian', type: 'text', rows: 15 },
           ],
           description: 'Prompt for 11th grade students',
         },
@@ -158,7 +158,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'text', rows: 15 },
             { name: 'ru', title: 'Russian', type: 'text', rows: 15 },
-            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 15 },
+            { name: 'ua', title: 'Ukrainian', type: 'text', rows: 15 },
           ],
           description: 'Prompt for bachelor students and graduates',
         },
@@ -169,7 +169,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'text', rows: 15 },
             { name: 'ru', title: 'Russian', type: 'text', rows: 15 },
-            { name: 'uk', title: 'Ukrainian', type: 'text', rows: 15 },
+            { name: 'ua', title: 'Ukrainian', type: 'text', rows: 15 },
           ],
           description: 'Prompt for parents',
         },
@@ -201,7 +201,7 @@ export default defineType({
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
             },
             {
-              name: 'uk',
+              name: 'ua',
               title: 'Ukrainian',
               type: 'array',
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
@@ -227,7 +227,7 @@ export default defineType({
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
             },
             {
-              name: 'uk',
+              name: 'ua',
               title: 'Ukrainian',
               type: 'array',
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
@@ -253,7 +253,7 @@ export default defineType({
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
             },
             {
-              name: 'uk',
+              name: 'ua',
               title: 'Ukrainian',
               type: 'array',
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
@@ -279,7 +279,7 @@ export default defineType({
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
             },
             {
-              name: 'uk',
+              name: 'ua',
               title: 'Ukrainian',
               type: 'array',
               of: [{ type: 'reference', to: [{ type: 'simpleQuestion' }] }],
@@ -300,7 +300,7 @@ export default defineType({
           fields: [
             { name: 'en', title: 'English', type: 'string' },
             { name: 'ru', title: 'Russian', type: 'string' },
-            { name: 'uk', title: 'Ukrainian', type: 'string' },
+            { name: 'ua', title: 'Ukrainian', type: 'string' },
           ],
         },
         {

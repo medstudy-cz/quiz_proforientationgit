@@ -1,6 +1,6 @@
 {
   "_createdAt": "2026-03-01T22:27:27Z",
-  "_id": "question-uk-parent-all-0001",
+  "_id": "question-ua-parent-all-0001",
   "_rev": "0RYGNpKpxS7XL2k9j0bCeg",
   "_type": "simpleQuestion",
   "_updatedAt": "2026-03-01T22:27:27Z",
@@ -31,7 +31,7 @@
       "text": "Аналітичні здібності та інтерес до бізнесу"
     }
   ],
-  "language": "uk",
+  "language": "ua",
   "required": true,
   "title": "Який із цих талантів найяскравіше виражений у вашої дитини?",
   "type": "single"

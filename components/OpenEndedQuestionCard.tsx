@@ -21,14 +21,14 @@ export default function OpenEndedQuestionCard({
   const [touched, setTouched] = useState(false);
 
   const handleNext = () => {
-    if (value.trim().length >= 5) {
+    if (value.trim().length >= 2) {
       onAnswer(cardData.id, value.trim());
     } else {
       setTouched(true);
     }
   };
 
-  const isValid = value.trim().length >= 5;
+  const isValid = value.trim().length >= 2;
 
   return (
     <Card
@@ -53,7 +53,7 @@ export default function OpenEndedQuestionCard({
         isInvalid={touched && !isValid}
         errorMessage={
           touched && !isValid
-            ? "Ответ должен содержать минимум 5 символов"
+            ? "Ответ должен содержать минимум 2 символа"
             : undefined
         }
       />

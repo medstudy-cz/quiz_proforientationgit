@@ -19,7 +19,7 @@ import type { StartScreenCopyKey } from "@/utils/resolveStartScreenCopy";
 export function QuizPageContent() {
   const { step, setStep, role, level, setAnswers, answers, sanityQuiz } = useQuiz();
   const t = useTranslations("StartScreen");
-  const locale = useLocale() || "uk";
+  const locale = useLocale() || "ua";
   const startCopy = resolveStartScreenCopy(locale, sanityQuiz?.startScreen, (key: StartScreenCopyKey) =>
     t(key)
   );

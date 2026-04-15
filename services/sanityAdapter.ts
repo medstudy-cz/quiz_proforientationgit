@@ -3,7 +3,12 @@
  * в формат, который ожидает существующее приложение
  */
 
-import type { Quiz, Question as SanityQuestion, Direction, University, School } from '@/sanity/lib/types'
+import type {
+  Quiz,
+  Question as SanityQuestion,
+  Direction,
+  LocalizedText,
+} from '@/sanity/lib/types'
 import type { QuestionBankLanguage, Question, Option } from '@/dictionaries/quizDictionary'
 import { educationalInstitutionsDictionary, DirectionType, SchoolDirectionType } from '@/dictionaries/educationalInstitutionsDictionary'
 import type { Answer } from '@/context/QuizContext'
@@ -14,14 +19,14 @@ import { getUniversitiesByDirection, getSchoolsByDirection } from '@/sanity/lib/
  */
 function convertSanityQuestionToAppFormat(
   sanityQuestion: SanityQuestion,
-  locale: 'en' | 'ru' | 'uk'
+  locale: 'en' | 'ru' | 'ua'
 ): Question {
   // Определяем, это SimpleQuestion (title: string) или старый Question (title: LocalizedText)
   const isSimpleQuestion = typeof sanityQuestion.title === 'string'
 
   const questionText = isSimpleQuestion
     ? sanityQuestion.title as string
-    : (sanityQuestion.title as any)[locale]
+    : ((sanityQuestion.title as LocalizedText)[locale] ?? '')
 
   const question: Question = {
     type: sanityQuestion.type === 'text' ? 'open-ended' : 'multiple-choice',
@@ -35,7 +40,7 @@ function convertSanityQuestionToAppFormat(
     question.options = sanityQuestion.answers.map((answer: any) => {
       const answerText = typeof answer.text === 'string'
         ? answer.text
-        : answer.text[locale]
+        : ((answer.text as LocalizedText)[locale] ?? '')
 
       return {
         answers: [answerText],
@@ -52,7 +57,7 @@ function convertSanityQuestionToAppFormat(
  */
 function convertQuestionsList(
   questions: Array<SanityQuestion | { _ref: string; _type: string }> | undefined,
-  locale: 'en' | 'ru' | 'uk'
+  locale: 'en' | 'ru' | 'ua'
 ): Question[] {
   if (!questions || questions.length === 0) {
     console.log('⚠️ convertQuestionsList: пустой массив вопросов');
@@ -88,7 +93,7 @@ function convertQuestionsList(
  */
 export function adaptSanityQuizToQuestionBank(
   quiz: Quiz,
-  locale: 'en' | 'ru' | 'uk'
+  locale: 'en' | 'ru' | 'ua'
 ): QuestionBankLanguage {
   const { questions } = quiz
 
@@ -98,23 +103,14 @@ export function adaptSanityQuizToQuestionBank(
     student_grade_9: questions.student_grade_9?.[locale],
     student_grade_11: questions.student_grade_11?.[locale],
     student_bachelor: questions.student_bachelor?.[locale],
-    parent: questions.parent?.[locale]
-  });
+    parent: questions.parent?.[locale],
+  })
 
   const result = {
     student: {
-      grade_9: convertQuestionsList(
-        questions.student_grade_9?.[locale],
-        locale
-      ),
-      grade_11: convertQuestionsList(
-        questions.student_grade_11?.[locale],
-        locale
-      ),
-      bachelor: convertQuestionsList(
-        questions.student_bachelor?.[locale],
-        locale
-      ),
+      grade_9: convertQuestionsList(questions.student_grade_9?.[locale], locale),
+      grade_11: convertQuestionsList(questions.student_grade_11?.[locale], locale),
+      bachelor: convertQuestionsList(questions.student_bachelor?.[locale], locale),
     },
     parent: {
       all: convertQuestionsList(questions.parent?.[locale], locale),
@@ -133,7 +129,7 @@ export function getSanityAIPrompt(
   quiz: Quiz,
   role: string,
   level: string,
-  locale: 'en' | 'ru' | 'uk'
+  locale: 'en' | 'ru' | 'ua'
 ): string {
   // Определяем ключ промпта на основе роли и уровня
   const promptKey = role === 'parent' ? 'parent' : `student_${level}` as keyof typeof quiz.aiPrompts
@@ -143,7 +139,11 @@ export function getSanityAIPrompt(
     throw new Error(`Prompt not found for role "${role}" and level "${level}"`)
   }
 
-  return rolePrompt[locale]
+  const text = rolePrompt[locale]
+  if (text === undefined || text === '') {
+    throw new Error(`Prompt text missing for locale "${locale}" (role "${role}", level "${level}")`)
+  }
+  return text
 }
 
 /**
@@ -152,7 +152,7 @@ export function getSanityAIPrompt(
 export function formatAnswersForPrompt(
   questions: SanityQuestion[],
   answers: Array<{ question: string; answer: string }>,
-  locale: 'en' | 'ru' | 'uk'
+  locale: 'en' | 'ru' | 'ua'
 ): string {
   return answers
     .map((ans, idx) => {
@@ -163,7 +163,7 @@ export function formatAnswersForPrompt(
       const isSimpleQuestion = typeof question.title === 'string'
       const questionText = isSimpleQuestion
         ? question.title as string
-        : (question.title as any)[locale]
+        : ((question.title as LocalizedText)[locale] ?? '')
 
       return `${questionText}: ${ans.answer}`
     })
@@ -193,7 +193,7 @@ export async function buildSanityPrompt(
   role: string,
   level: string,
   answers: Answer[],
-  locale: 'en' | 'ru' | 'uk',
+  locale: 'en' | 'ru' | 'ua',
   useSanityInstitutions: boolean = true,
   additionalData?: Record<string, string>
 ): Promise<string> {
@@ -218,10 +218,17 @@ export async function buildSanityPrompt(
     ])
 
     universitiesList = universities
-      .map((u) => `${u.name[locale]}: ${u.faculties[locale].join(', ')}`)
+      .map((u) => {
+        const name = u.name[locale] ?? ''
+        const fac = u.faculties[locale]
+        const facStr = Array.isArray(fac) ? fac.join(', ') : ''
+        return `${name}: ${facStr}`
+      })
       .join('\n')
 
-    schoolsList = schools.map((s) => s.name[locale]).join('\n')
+    schoolsList = schools
+      .map((s) => s.name[locale] ?? '')
+      .join('\n')
   } else {
     // Fallback к старому словарю
     const topUniDirection = topDirectionTag as DirectionType

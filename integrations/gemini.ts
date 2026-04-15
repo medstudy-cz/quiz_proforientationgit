@@ -47,10 +47,10 @@ const AnswerSchema = z.object({
 });
 
 const ParamsSchema = z.object({
-  lang: z.string().default('uk'),
+  lang: z.string().default('ua'),
   userRole: z.string().min(1),
   educationLevel: z.string().min(1),
-  languagePreference: z.string().default('uk'),
+  languagePreference: z.string().default('ua'),
   scores: z.record(z.number()),
   userAnswers: z.array(AnswerSchema),
 });

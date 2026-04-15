@@ -23,7 +23,7 @@ const LanguageSwitch = () => {
         setValue(selection.toUpperCase());
 
         // убираем текущую локаль из pathname и добавляем новую
-        const segments = pathname.split("/").filter(Boolean); // ["uk", "page", ...]
+        const segments = pathname.split("/").filter(Boolean); // ["ua", "page", ...]
         if (acceptedLanguages.includes(segments[0])) segments.shift(); // убираем текущую локаль
 
         const newPath = "/" + selection + "/" + segments.join("/");

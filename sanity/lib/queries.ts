@@ -70,7 +70,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": questions.student_grade_9.uk[]-> {
+        "ua": questions.student_grade_9.ua[]-> {
           _id,
           title,
           language,
@@ -99,7 +99,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": questions.student_grade_11.uk[]-> {
+        "ua": questions.student_grade_11.ua[]-> {
           _id,
           title,
           language,
@@ -128,7 +128,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": questions.student_bachelor.uk[]-> {
+        "ua": questions.student_bachelor.ua[]-> {
           _id,
           title,
           language,
@@ -157,7 +157,7 @@ export const quizWithOrderedQuestionsQuery = groq`
           answers,
           required
         },
-        "uk": questions.parent.uk[]-> {
+        "ua": questions.parent.ua[]-> {
           _id,
           title,
           language,

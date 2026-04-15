@@ -18,7 +18,7 @@ export function LeadCaptureForm({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const t = useTranslations("LeadCaptureForm");
-  const locale = useLocale() || "uk";
+  const locale = useLocale() || "ua";
   const [loading, setLoading] = useState(false);
 
   const previewReport = (
@@ -121,7 +121,7 @@ export function LeadCaptureForm({
             answers:
               reportError +
               emailSendError +
-              formatAnswers(answers, locale as "en" | "uk" | "ru"),
+              formatAnswers(answers, locale as "en" | "ua" | "ru"),
             utm: getUTMParams(),
           }),
         })

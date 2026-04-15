@@ -1,15 +1,15 @@
-{"_type":"school","_id":"school-TECH-0000","name":{"uk":"Середня промислова школа (SPŠ)","ru":"Середня промислова школа (SPŠ)","en":"Середня промислова школа (SPŠ)"},"direction":"TECH","order":0,"isActive":true}
-{"_type":"school","_id":"school-TECH-0001","name":{"uk":"Ліцей інформатики","ru":"Ліцей інформатики","en":"Ліцей інформатики"},"direction":"TECH","order":1,"isActive":true}
-{"_type":"school","_id":"school-TECH-0002","name":{"uk":"Гімназія (математичний профіль)","ru":"Гімназія (математичний профіль)","en":"Гімназія (математичний профіль)"},"direction":"TECH","order":2,"isActive":true}
-{"_type":"school","_id":"school-MED-0003","name":{"uk":"Гімназія з природничим ухилом","ru":"Гімназія з природничим ухилом","en":"Гімназія з природничим ухилом"},"direction":"MED","order":3,"isActive":true}
-{"_type":"school","_id":"school-MED-0004","name":{"uk":"Середня медична школа","ru":"Середня медична школа","en":"Середня медична школа"},"direction":"MED","order":4,"isActive":true}
-{"_type":"school","_id":"school-MED-0005","name":{"uk":"Ліцей з біології/хімії","ru":"Ліцей з біології/хімії","en":"Ліцей з біології/хімії"},"direction":"MED","order":5,"isActive":true}
-{"_type":"school","_id":"school-HUM-0006","name":{"uk":"Гуманітарна гімназія","ru":"Гуманітарна гімназія","en":"Гуманітарна гімназія"},"direction":"HUM","order":6,"isActive":true}
-{"_type":"school","_id":"school-HUM-0007","name":{"uk":"Педагогічна школа","ru":"Педагогічна школа","en":"Педагогічна школа"},"direction":"HUM","order":7,"isActive":true}
-{"_type":"school","_id":"school-HUM-0008","name":{"uk":"Ліцей суспільних наук","ru":"Ліцей суспільних наук","en":"Ліцей суспільних наук"},"direction":"HUM","order":8,"isActive":true}
-{"_type":"school","_id":"school-ECO-0009","name":{"uk":"Obchodní akademie (економічний ліцей)","ru":"Obchodní akademie (економічний ліцей)","en":"Obchodní akademie (економічний ліцей)"},"direction":"ECO","order":9,"isActive":true}
-{"_type":"school","_id":"school-ECO-0010","name":{"uk":"Гімназія (економічний профіль)","ru":"Гімназія (економічний профіль)","en":"Гімназія (економічний профіль)"},"direction":"ECO","order":10,"isActive":true}
-{"_type":"school","_id":"school-ECO-0011","name":{"uk":"Ліцей бізнесу","ru":"Ліцей бізнесу","en":"Ліцей бізнесу"},"direction":"ECO","order":11,"isActive":true}
-{"_type":"school","_id":"school-NAT-0012","name":{"uk":"Природничий ліцей","ru":"Природничий ліцей","en":"Природничий ліцей"},"direction":"NAT","order":12,"isActive":true}
-{"_type":"school","_id":"school-NAT-0013","name":{"uk":"Гімназія з акцентом на біологію/географію","ru":"Гімназія з акцентом на біологію/географію","en":"Гімназія з акцентом на біологію/географію"},"direction":"NAT","order":13,"isActive":true}
-{"_type":"school","_id":"school-NAT-0014","name":{"uk":"SPŠ (хімічна)","ru":"SPŠ (хімічна)","en":"SPŠ (хімічна)"},"direction":"NAT","order":14,"isActive":true}
+{"_type":"school","_id":"school-TECH-0000","name":{"ua":"Середня промислова школа (SPŠ)","ru":"Середня промислова школа (SPŠ)","en":"Середня промислова школа (SPŠ)"},"direction":"TECH","order":0,"isActive":true}
+{"_type":"school","_id":"school-TECH-0001","name":{"ua":"Ліцей інформатики","ru":"Ліцей інформатики","en":"Ліцей інформатики"},"direction":"TECH","order":1,"isActive":true}
+{"_type":"school","_id":"school-TECH-0002","name":{"ua":"Гімназія (математичний профіль)","ru":"Гімназія (математичний профіль)","en":"Гімназія (математичний профіль)"},"direction":"TECH","order":2,"isActive":true}
+{"_type":"school","_id":"school-MED-0003","name":{"ua":"Гімназія з природничим ухилом","ru":"Гімназія з природничим ухилом","en":"Гімназія з природничим ухилом"},"direction":"MED","order":3,"isActive":true}
+{"_type":"school","_id":"school-MED-0004","name":{"ua":"Середня медична школа","ru":"Середня медична школа","en":"Середня медична школа"},"direction":"MED","order":4,"isActive":true}
+{"_type":"school","_id":"school-MED-0005","name":{"ua":"Ліцей з біології/хімії","ru":"Ліцей з біології/хімії","en":"Ліцей з біології/хімії"},"direction":"MED","order":5,"isActive":true}
+{"_type":"school","_id":"school-HUM-0006","name":{"ua":"Гуманітарна гімназія","ru":"Гуманітарна гімназія","en":"Гуманітарна гімназія"},"direction":"HUM","order":6,"isActive":true}
+{"_type":"school","_id":"school-HUM-0007","name":{"ua":"Педагогічна школа","ru":"Педагогічна школа","en":"Педагогічна школа"},"direction":"HUM","order":7,"isActive":true}
+{"_type":"school","_id":"school-HUM-0008","name":{"ua":"Ліцей суспільних наук","ru":"Ліцей суспільних наук","en":"Ліцей суспільних наук"},"direction":"HUM","order":8,"isActive":true}
+{"_type":"school","_id":"school-ECO-0009","name":{"ua":"Obchodní akademie (економічний ліцей)","ru":"Obchodní akademie (економічний ліцей)","en":"Obchodní akademie (економічний ліцей)"},"direction":"ECO","order":9,"isActive":true}
+{"_type":"school","_id":"school-ECO-0010","name":{"ua":"Гімназія (економічний профіль)","ru":"Гімназія (економічний профіль)","en":"Гімназія (економічний профіль)"},"direction":"ECO","order":10,"isActive":true}
+{"_type":"school","_id":"school-ECO-0011","name":{"ua":"Ліцей бізнесу","ru":"Ліцей бізнесу","en":"Ліцей бізнесу"},"direction":"ECO","order":11,"isActive":true}
+{"_type":"school","_id":"school-NAT-0012","name":{"ua":"Природничий ліцей","ru":"Природничий ліцей","en":"Природничий ліцей"},"direction":"NAT","order":12,"isActive":true}
+{"_type":"school","_id":"school-NAT-0013","name":{"ua":"Гімназія з акцентом на біологію/географію","ru":"Гімназія з акцентом на біологію/географію","en":"Гімназія з акцентом на біологію/географію"},"direction":"NAT","order":13,"isActive":true}
+{"_type":"school","_id":"school-NAT-0014","name":{"ua":"SPŠ (хімічна)","ru":"SPŠ (хімічна)","en":"SPŠ (хімічна)"},"direction":"NAT","order":14,"isActive":true}

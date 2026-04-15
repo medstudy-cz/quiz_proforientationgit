@@ -115,7 +115,7 @@ const PopUps = ({modalForm} : PopUpsProps) => {
 
     const isThankYouShown = () => params.get("thanks")  == "test"
 
-    const isOrientationUaShown = () => !isThankYouShown() && pathname == "/uk"
+    const isOrientationUaShown = () => !isThankYouShown() && pathname == "/ua"
 
     return (
         <>
