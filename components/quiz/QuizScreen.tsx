@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { Option } from "@/dictionaries/quizDictionary";
 import { trackEvent } from "@/utils/analytics";
 import { sendEventToServer } from "@/utils/sendEvent";
-import { buildPrompt } from "@/utils/buildPrompt";
+import { buildReportPrompt } from "@/utils/buildReportPrompt";
 
 export function QuizScreen() {
   const {
@@ -21,6 +21,7 @@ export function QuizScreen() {
     answers,
     setStep,
     setReportPromise,
+    sanityQuiz,
   } = useQuiz();
 
   const [inputValue, setInputValue] = useState("");
@@ -85,15 +86,15 @@ export function QuizScreen() {
       return;
     }
 
-    const finalPrompt = buildPrompt({
-      role: role!,
-      level: level!,
-      answers: updatedAnswers,
-      locale: locale as "en" | "ua" | "ru",
-    });
-
     const reportPromise = (async () => {
       try {
+        const finalPrompt = await buildReportPrompt({
+          sanityQuiz,
+          role: role!,
+          level: level!,
+          answers: updatedAnswers,
+          locale: locale as "en" | "ua" | "ru",
+        });
         const res = await fetch("/api/report", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

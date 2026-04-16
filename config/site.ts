@@ -5,8 +5,8 @@ export const siteConfig = {
     description: "Вы мечтаете о высшем образовании в Европе? Мы готовы сделать вашу мечту реальностью. Medstudy предоставляет уникальные программы подготовки и поддержки",
     links: {
         inst: "https://www.instagram.com/medstudy.cz/",
-        youtube: "https://www.youtube.com/channel/UCLg3STR2ikFDpU4_h943PMQ/featured",
-        tiktok: "https://www.tiktok.com/@medstudycz",
+        youtube: "https://www.youtube.com/@Medstudy_cz",
+        tiktok: "https://www.tiktok.com/@med_study_cz?_t=8sVVQ0wWk2n",
     },
 
     contacts: {
