@@ -7,7 +7,8 @@ import { sendEventToServer } from "@/utils/sendEvent";
 export function ThankYouScreen() {
   const t = useTranslations("ThankYouScreen");
   const locale = useLocale() || "ua";
-  const fullProgramsUrl = `https://medstudy.cz/${locale}/products/fullprograms`;
+  const localeForSiteUrl = locale === "ua" ? "uk" : locale;
+  const fullProgramsUrl = `https://medstudy.cz/${localeForSiteUrl}/products/fullprograms`;
 
   useEffect(() => {
     const payload = { source: "thank_you_page" };
