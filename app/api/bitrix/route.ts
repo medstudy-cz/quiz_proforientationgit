@@ -9,9 +9,9 @@ export async function POST(req: Request) {
     const leadData: any = {
 /*       TITLE: body.title, */
       NAME: body.name,
-/*       HAS_EMAIL: "Y",
+      HAS_EMAIL: "Y",
       EMAIL: [{ VALUE_TYPE: "WORK", VALUE: body.email }],
-      COMMENTS: body.report ? body.report + "\n" + body.answers : body.answers, */
+/*       COMMENTS: body.report ? body.report + "\n" + body.answers : body.answers, */
       SOURCE_ID: body.source_id,
       UTM_SOURCE: body.utm?.source || "",
       UTM_MEDIUM: body.utm?.medium || "",
