@@ -65,7 +65,7 @@ export function QuizScreen() {
 
     const updatedAnswers = [
       ...answers,
-      { question: questionId, answer: answerValue },
+      { question: current.question, answer: answerValue },
     ];
 
     setAnswers(updatedAnswers);
