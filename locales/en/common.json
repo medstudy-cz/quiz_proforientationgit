@@ -68,6 +68,8 @@
     "privacyNote": "Your data is protected. No spam. You can unsubscribe in one click.",
     "form": {
       "nameLabel": "Your name",
+      "phoneLabel": "Phone number",
+      "phoneError": "Please enter a valid phone number",
       "emailLabel": "Email to receive results",
       "submit": "Get the report by email",
       "sending": "Sending..."

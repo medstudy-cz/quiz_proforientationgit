@@ -8,18 +8,34 @@ import { getUTMParams } from "@/utils/getUTMParams";
 import { formatAnswers } from "@/utils/formatAnswers";
 import { trackEvent } from "@/utils/analytics";
 import { sendEventToServer } from "@/utils/sendEvent";
+import { CountrySelector, usePhoneInput } from "react-international-phone";
+import { isValidPhoneNumber } from "libphonenumber-js";
+import "react-international-phone/style.css";
 
 export function LeadCaptureForm({
   onSubmit,
 }: {
-  onSubmit: (data: { name: string; email: string }) => void;
+  onSubmit: (data: { name: string; email: string; phone: string }) => void;
 }) {
   const { answers, setStep, role, level, reportPromise, reportHtml, setReportHtml, generateReportHtml } = useQuiz();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const t = useTranslations("LeadCaptureForm");
   const locale = useLocale() || "ua";
   const [loading, setLoading] = useState(false);
+
+  const phoneInput = usePhoneInput({
+    defaultCountry: "ua",
+    value: phone,
+    onChange: (data) => {
+      setPhone(data.phone);
+      if (phoneError) {
+        setPhoneError("");
+      }
+    },
+  });
 
   const previewReport = (
     <div className="preview-content mb-2 text-left text-gray-700 p-4 border rounded-lg bg-gray-50 blur-sm select-none text-sm">
@@ -39,6 +55,11 @@ export function LeadCaptureForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!phone || !isValidPhoneNumber(phone, phoneInput.country.iso2)) {
+      setPhoneError(t("form.phoneError"));
+      return;
+    }
 
     let emailSendError = "";
     let bitrixSendError = "";
@@ -117,6 +138,7 @@ export function LeadCaptureForm({
             title: "Quiz Lead",
             name,
             email,
+            phone,
             source_id: 15,
             answers:
               reportError +
@@ -150,13 +172,14 @@ export function LeadCaptureForm({
         education_level: level,
         name,
         email,
+        phone,
       };
 
       trackEvent("Lead_submit", leadPayload);
       sendEventToServer(leadPayload);
 
       setStep("thankyou");
-      onSubmit({ name, email });
+      onSubmit({ name, email, phone });
 
     } catch (err: any) {
       console.error("🔥 SUBMIT CRASH:", err);
@@ -212,6 +235,36 @@ export function LeadCaptureForm({
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+        </div>
+
+        <div className="mb-4">
+          <div
+            className={`flex w-full items-center border-2 rounded-[16px] text-base font-semibold bg-gray-50 focus-within:ring-[#00C0FD] focus-within:border-[#00C0FD] hover:border-[#00C0FD] ${
+              phoneError ? "border-red-400" : "border-[#C3E5F7]"
+            }`}
+          >
+            <CountrySelector
+              selectedCountry={phoneInput.country.iso2}
+              onSelect={(country) => phoneInput.setCountry(country.iso2)}
+              dropdownStyleProps={{
+                className: "rounded-xl max-h-48 overflow-y-auto",
+                style: { zIndex: 50 },
+              }}
+              buttonStyle={{ border: "none", background: "transparent", paddingLeft: "12px" }}
+            />
+            <input
+              type="tel"
+              className="flex-1 p-3 bg-transparent placeholder-[#153060]/80 focus:outline-none"
+              placeholder={t("form.phoneLabel")}
+              value={phoneInput.phone}
+              onChange={phoneInput.handlePhoneValueChange}
+              ref={phoneInput.inputRef}
+              required
+            />
+          </div>
+          {phoneError && (
+            <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+          )}
         </div>
 
         <div className="mb-6">
