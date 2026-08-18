@@ -9,7 +9,7 @@ import { formatAnswers } from "@/utils/formatAnswers";
 import { trackEvent } from "@/utils/analytics";
 import { sendEventToServer } from "@/utils/sendEvent";
 import { CountrySelector, usePhoneInput } from "react-international-phone";
-import { isValidPhoneNumber } from "libphonenumber-js";
+import { isValidPhoneNumber, type CountryCode } from "libphonenumber-js";
 import "react-international-phone/style.css";
 
 export function LeadCaptureForm({
@@ -56,7 +56,9 @@ export function LeadCaptureForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!phone || !isValidPhoneNumber(phone, phoneInput.country.iso2)) {
+    const countryCode = phoneInput.country.iso2.toUpperCase() as CountryCode;
+
+    if (!phone || !isValidPhoneNumber(phone, countryCode)) {
       setPhoneError(t("form.phoneError"));
       return;
     }
