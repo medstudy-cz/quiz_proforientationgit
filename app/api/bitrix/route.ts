@@ -7,10 +7,11 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const leadData: any = {
-/*       TITLE: body.title, */
       NAME: body.name,
       HAS_EMAIL: "Y",
       EMAIL: [{ VALUE_TYPE: "WORK", VALUE: body.email }],
+      HAS_PHONE: "Y",
+      PHONE: [{ VALUE_TYPE: "WORK", VALUE: body.phone }],
       COMMENTS: body.answers || "",
       SOURCE_ID: body.source_id,
       UTM_SOURCE: body.utm?.source || "",
