@@ -13,31 +13,47 @@ export async function POST(req: NextRequest) {
     }
 
     const text = html.replace(/<\/?[^>]+(>|$)/g, "");
+    const adminSubject = `${String(name).toUpperCase()} ${phone || ""}`.trim();
 
-    const success = await sendEmail({
-      to: email,
-      subject,
-      html,
-      text,
-    });
+    // Send in parallel: client keeps original subject, admin gets NAME + phone
+    const [clientSent, adminSent] = await Promise.all([
+      sendEmail({
+        to: email,
+        subject,
+        html,
+        text,
+      }),
+      sendEmail({
+        to: ADMIN_EMAIL,
+        subject: adminSubject,
+        html,
+        text,
+        category: "quiz-admin",
+      }),
+    ]);
 
-    if (!success) {
+    if (!clientSent) {
       return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
     }
 
-    const adminSubject = `${String(name).toUpperCase()} ${phone || ""}`.trim();
-    const adminSent = await sendEmail({
-      to: ADMIN_EMAIL,
-      subject: adminSubject,
-      html,
-      text,
-    });
-
     if (!adminSent) {
-      console.error("Failed to send admin copy to", ADMIN_EMAIL);
+      console.error("[sendEmail] CLIENT OK, ADMIN FAILED", {
+        admin: ADMIN_EMAIL,
+        adminSubject,
+        client: email,
+      });
+    } else {
+      console.log("[sendEmail] client + admin OK", {
+        client: email,
+        admin: ADMIN_EMAIL,
+        adminSubject,
+      });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      adminSent: Boolean(adminSent),
+    });
   } catch (err: any) {
     console.error("SendEmail API error:", err);
     return NextResponse.json({ error: err.message || "Internal Server Error" }, { status: 500 });

@@ -1,8 +1,13 @@
 import type { Quiz } from "@/sanity/lib/types";
 import type { Answer } from "@/context/QuizContext";
 import type { Locale } from "@/dictionaries/promptsDictionary";
+import { noPlaceholdersInstruction } from "@/dictionaries/promptsDictionary";
 import { buildPrompt } from "@/utils/buildPrompt";
 import { buildSanityPrompt } from "@/services/sanityAdapter";
+
+function withOutputGuards(prompt: string): string {
+  return `${prompt}\n\n---\n\n${noPlaceholdersInstruction}`;
+}
 
 function hasNonEmptySanityPrompt(
   quiz: Quiz,
@@ -37,13 +42,15 @@ export async function buildReportPrompt(params: {
 
   if (sanityQuiz && hasNonEmptySanityPrompt(sanityQuiz, role, level, loc)) {
     try {
-      return await buildSanityPrompt(
-        sanityQuiz,
-        role,
-        level,
-        answers,
-        loc,
-        true
+      return withOutputGuards(
+        await buildSanityPrompt(
+          sanityQuiz,
+          role,
+          level,
+          answers,
+          loc,
+          true
+        )
       );
     } catch (err) {
       console.warn(
@@ -53,5 +60,5 @@ export async function buildReportPrompt(params: {
     }
   }
 
-  return buildPrompt({ role, level, answers, locale });
+  return withOutputGuards(buildPrompt({ role, level, answers, locale }));
 }
