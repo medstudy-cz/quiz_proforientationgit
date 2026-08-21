@@ -11,14 +11,14 @@ export type SendEmailParams = {
   sandbox?: boolean;
 };
 
-const API_KEY = process.env.SENDGRID_API_KEY;
+const API_KEY = process.env.SENDGRID_API_KEY?.trim();
 if (!API_KEY) throw new Error('SENDGRID_API_KEY is not set');
 
 sgMail.setApiKey(API_KEY);
 
-const FROM_EMAIL = process.env.EMAIL_FROM || 'noreplay@medstudy.cz';
-const FROM_NAME = process.env.EMAIL_FROM_NAME || 'Quiz Service';
-const DEFAULT_REPLY_TO = process.env.EMAIL_REPLY_TO || 'sales@medstudy.cz';
+const FROM_EMAIL = process.env.EMAIL_FROM?.trim() || 'noreplay@medstudy.cz';
+const FROM_NAME = process.env.EMAIL_FROM_NAME?.trim() || 'Quiz Service';
+const DEFAULT_REPLY_TO = process.env.EMAIL_REPLY_TO?.trim() || 'sales@medstudy.cz';
 
 async function sendWithRetry(message: MailDataRequired, attempts = 3): Promise<void> {
   for (let i = 1; i <= attempts; i++) {
@@ -45,6 +45,8 @@ export async function sendEmail({
   const recipients = Array.isArray(to) ? to : [to];
   if (!recipients.length) throw new Error('Invalid recipient email');
 
+  void sandbox;
+
   const msg: MailDataRequired = {
     to: recipients,
     from: { email: FROM_EMAIL, name: FROM_NAME },
@@ -53,9 +55,6 @@ export async function sendEmail({
     html,
     ...(text ? { text } : {}),
     categories: [category],
-    /*     mailSettings: {
-          sandboxMode: { enable: Boolean(sandbox) },
-        }, */
     mailSettings: { sandboxMode: { enable: false } },
     trackingSettings: {
       clickTracking: { enable: true, enableText: true },
@@ -66,7 +65,13 @@ export async function sendEmail({
   try {
     await sendWithRetry(msg);
     return true;
-  } catch {
+  } catch (err: any) {
+    console.error('[email] sendEmail failed:', {
+      to: recipients,
+      subject,
+      from: FROM_EMAIL,
+      error: err?.response?.body || err?.message || err,
+    });
     return false;
   }
 }

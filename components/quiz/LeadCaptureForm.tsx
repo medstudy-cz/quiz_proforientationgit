@@ -98,6 +98,7 @@ export function LeadCaptureForm({
           body: JSON.stringify({
             name,
             email,
+            phone,
             subject: t("subject"),
             html: finalHtml || "No report generated",
           }),
