@@ -1,0 +1,23 @@
+services:
+  medstudy-quiz_proforientation-app-1:
+    image: ghcr.io/medstudy-cz/quiz_proforientationgit:${IMAGE_TAG}
+    container_name: medstudy-quiz_proforientation-prod
+    entrypoint: [ "node", "node_modules/next/dist/bin/next", "start"]
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:3000 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+    networks:
+      - web-network
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "127.0.0.1:8867:3000"
+
+networks:
+  web-network:
+    external: true
