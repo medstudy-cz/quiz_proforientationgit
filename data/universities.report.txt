@@ -1,0 +1,90 @@
+Czech university admission data collection report
+Source: F:\Мой диск\_Хранилище файлов\NEW Учебный отдел Сопровождение\Перенос\Учебная часть (1)\Студенты 2025-2026
+Out dir: C:\Users\pc\AppData\Local\Temp\universities_data
+
+Files found: 40
+  OK 1.xlsx: 4 records from 1 sheet(s)
+  OK Алиса Гараева.xlsx: 8 records from 1 sheet(s)
+  OK Анастасия Мацикивская.xlsx: 9 records from 1 sheet(s)
+  OK Анастасия Тимофеева.xlsx: 9 records from 1 sheet(s)
+  OK Андриана Андрус.xlsx: 8 records from 1 sheet(s)
+  OK Анна Боднар.xlsx: 8 records from 1 sheet(s)
+  OK Анна Ежова.xlsx: 6 records from 1 sheet(s)
+  OK Артем Колесніков.xlsx: 8 records from 1 sheet(s)
+  OK Варвара Клименко.xlsx: 9 records from 1 sheet(s)
+  OK Виктория Ткаченко.xlsx: 4 records from 1 sheet(s)
+  OK Вікторія Гелетій новий.xlsx: 3 records from 1 sheet(s)
+  OK Вікторія Гелетій(1).xlsx: 6 records from 1 sheet(s)
+  OK Вікторія Гелетій.xlsx: 7 records from 1 sheet(s)
+  OK Гохар Сафарян.xlsx: 8 records from 1 sheet(s)
+  OK Диана Нестеренко новый.xlsx: 8 records from 1 sheet(s)
+  OK Диана Нестеренко.xlsx: 6 records from 1 sheet(s)
+  OK Діана Засядьвовк.xlsx: 4 records from 1 sheet(s)
+  OK Егор Учаев(1).xlsx: 5 records from 1 sheet(s)
+  OK Егор Учаев.xlsx: 7 records from 1 sheet(s)
+  OK Елизавета Худенко.xlsx: 8 records from 1 sheet(s)
+  OK Зарина Анисовец.xlsx: 7 records from 1 sheet(s)
+  OK Камилла Глинская.xlsx: 8 records from 1 sheet(s)
+  OK Кирилл Чернев.xlsx: 8 records from 1 sheet(s)
+  OK Максим Бевза.xlsx: 4 records from 1 sheet(s)
+  OK Маргарита Мищенко.xlsx: 8 records from 1 sheet(s)
+  OK Микола Корягін.xlsx: 5 records from 1 sheet(s)
+  OK Мирослава Градова.xlsx: 9 records from 1 sheet(s)
+  OK Михаил Коцюба_.xlsx: 9 records from 1 sheet(s)
+  OK Михайло Полупан.xlsx: 5 records from 1 sheet(s)
+  OK Оксана Самарик.xlsx: 4 records from 1 sheet(s)
+  OK Олег Алексашкин.xlsx: 8 records from 1 sheet(s)
+  OK Олена Корягіна.xlsx: 4 records from 1 sheet(s)
+  OK Полина Завальская.xlsx: 9 records from 1 sheet(s)
+  OK Расписание консультаций студентов без консалтинга.xlsx: 11 records from 1 sheet(s)
+  OK Сабина Брахман.xlsx: 3 records from 1 sheet(s)
+  OK Святослав Ящук.xlsx: 10 records from 1 sheet(s)
+  OK Эрнест Биловусько.xlsx: 6 records from 1 sheet(s)
+  OK Юлия Тарумова.xlsx: 8 records from 1 sheet(s)
+  OK Юлія Юрків.xlsx: 4 records from 1 sheet(s)
+  OK Ірина Перепеличенко.xlsx: 11 records from 1 sheet(s)
+
+Processed files (with data): 40
+Skipped files: 0
+Errors: 0
+Raw records: 276
+After dedup: 98
+Final objects: 98
+First 3 ids: vse-fmv-international-business, vse-fph-business-administration, vse-fnh-economics
+JSON written: C:\Users\pc\AppData\Local\Temp\universities_data\universities.json
+Report written: C:\Users\pc\AppData\Local\Temp\universities_data\universities.report.txt
+
+Copy notes:
+  Copied to source data/: F:\Мой диск\_Хранилище файлов\NEW Учебный отдел Сопровождение\Перенос\Учебная часть (1)\Студенты 2025-2026\data\universities.json
+  Copied to \workspace\out
+  Copied to /workspace/universities.json and .report.txt
+
+Post-clean:
+  Removed junk after collect: 12 (was 98, now 86)
+  REMOVED [documents-as-faculty] На момент подачи приглашки дополнительных документов не требуют. | Informační bezpečnost/Telekomunikační a informační systémy | id=informacni-bezpecnost-telekomunikacni-a-informacni-systemy
+  REMOVED [header-like] Дата | Время | id=item
+  REMOVED [schedule-slot] 30.01 | 11:00–11:20 | id=30-01-11-00-11-20
+  REMOVED [schedule-slot] 30.01 | 11:20–11:40 | id=30-01-11-20-11-40
+  REMOVED [schedule-slot] 30.01 | 11:40–12:00 | id=30-01-11-40-12-00
+  REMOVED [schedule-slot] 30.01 | 12:20–12:40 | id=30-01-12-20-12-40
+  REMOVED [schedule-slot] 30.01 | 12:40–13:00 | id=30-01-12-40-13-00
+  REMOVED [schedule-slot] 30.01 | 13:00–13:20 | id=30-01-13-00-13-20
+  REMOVED [schedule-slot] 30.01 | 13:20 -- 13:40 | id=30-01-13-20-13-40
+  REMOVED [schedule-slot] 30.01 | 14:00–14:20 | id=30-01-14-00-14-20
+  REMOVED [schedule-slot] 30.01 | 14:20–14:40 | id=30-01-14-20-14-40
+  REMOVED [schedule-slot] 31.01 | 14:40–15:00 | id=31-01-14-40-15-00
+Final objects after clean: 86
+
+=== Project import clean (Cursor) ===
+Source count: 86
+Final count: 80
+Removed: 6
+{"reason":"junk","id":"vscht","facultyAndUni":"VŠCHT","specialty":"Программы"}
+{"reason":"duplicate","kept":"vscht-synteza-a-vyroba-leciv-analyticka-a-forenzni-chemie-forenzni-a-toxikologicka-analyza","removed":"vscht-synteza-a-vyroba-leciv-analyticka-a-forenzni-chemie-forenzni-a-toxikologicka-analyza-2"}
+{"reason":"duplicate","kept":"uk-prirodovedecka-fakulta-biologie-molekularni-biologie-a-biochemie-organismu-klinicka-a-toxikologicka-analyza-medicinalni-chemie","removed":"uk-prirodovedecka-fakulta-biologie-molekularni-biologie-a-biochemie-organismu-klinicka-a-toxikologicka-analyza-medicinalni-chemie-2"}
+{"reason":"junk","id":"vscht-2","facultyAndUni":"VŠCHT","specialty":"Программи"}
+{"reason":"language-twin","kept":"vut-fp-ekonomika-a-management","removed":"vut-fp"}
+{"reason":"language-twin","kept":"vut-fp-ekonomika-a-management","removed":"vut-fp-2"}
+
+Removed extra FIT twin: cvut-fit-informacni-bezpecnost-manazerska-informatika-pocitacova-grafika-pocitacove-inzenyrstvi-pocitacove-site-a-internet-pocitacove-systemy-a-virtualizace-softwarove-inzenyrstvi-teoreticka-informatika-umela-inteligence-webove-inzenyrstvi-2
+Final count: 79

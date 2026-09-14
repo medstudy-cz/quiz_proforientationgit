@@ -17,7 +17,6 @@
     "student": {
       "title": "What is your current level of education?",
       "options": {
-        "grade_9": "After 9th grade",
         "grade_11": "After 11th grade",
         "bachelor": "Bachelor's degree"
       }
@@ -37,7 +36,7 @@
     "subtitle": "Your AI report is almost ready. Get a selection of specialties and faculties tailored just for you.",
     "preview": {
       "heading": "Your direction",
-      "paragraph": "Based on your answers, the most suitable path is <b>Humanities</b>. This will help you choose a study profile after 9th grade.",
+      "paragraph": "Based on your answers, the most suitable path is <b>Humanities</b>. This will help you choose matching majors and universities.",
       "schools": "Recommended types of schools",
       "schoolList": [
         "Humanities Gymnasium",
@@ -54,7 +53,7 @@
     "subject": "Your personalized report",
     "preview": {
       "title": "Your direction",
-      "description": "Based on your answers, the Humanities track suits you best. This will help you choose a study profile after 9th grade.",
+      "description": "Based on your answers, the Humanities track suits you best. This will help you choose matching majors and universities.",
       "schoolsTitle": "Recommended school types",
       "schools1": "Humanities Gymnasium",
       "schools2": "Pedagogical School",
@@ -85,7 +84,8 @@
   "QuizScreen": {
     "placeholder": "Your answer...",
     "buttonNext": "Next",
-    "progress": "Question {current} of {total}"
+    "progress": "Question {current} of {total}",
+    "multiSelectHint": "You can select multiple options"
   },
   "footer": {
     "moto": "We prepare applicants \n for admission to Czech universities!"

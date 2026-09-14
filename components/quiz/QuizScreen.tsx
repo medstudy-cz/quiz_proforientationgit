@@ -25,6 +25,7 @@ export function QuizScreen() {
   } = useQuiz();
 
   const [inputValue, setInputValue] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const t = useTranslations("QuizScreen");
   const locale = useLocale() || "ua";
 
@@ -57,10 +58,25 @@ export function QuizScreen() {
     }
   }, [current, questionList.length, setStep]);
 
+  useEffect(() => {
+    setSelectedOptions([]);
+    setInputValue("");
+  }, [currentIndex]);
+
+  const toggleMultiSelectOption = (opt: string) => {
+    setSelectedOptions((prev) =>
+      prev.includes(opt) ? prev.filter((item) => item !== opt) : [...prev, opt]
+    );
+  };
+
   const handleAnswer = async (opt: any) => {
     if (!current) return;
 
-    const answerValue = typeof opt === "string" ? opt : opt.answers[0];
+    const answerValue = Array.isArray(opt)
+      ? opt.join("; ")
+      : typeof opt === "string"
+        ? opt
+        : String(opt);
     const questionId = `${currentIndex + 1}`;
 
     const updatedAnswers = [
@@ -83,28 +99,42 @@ export function QuizScreen() {
     if (currentIndex + 1 < questionList.length) {
       setCurrentIndex(currentIndex + 1);
       setInputValue("");
+      setSelectedOptions([]);
       return;
     }
 
     const reportPromise = (async () => {
       try {
-        const finalPrompt = await buildReportPrompt({
+        const promptParams = {
           sanityQuiz,
           role: role!,
           level: level!,
           answers: updatedAnswers,
           locale: locale as "en" | "ua" | "ru",
-        });
+        };
+
+        const [promptLayer1, promptLayer2] = await Promise.all([
+          buildReportPrompt({ ...promptParams, universityLayer: 1 }),
+          buildReportPrompt({ ...promptParams, universityLayer: 2 }),
+        ]);
+
         const res = await fetch("/api/report", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ promptText: finalPrompt }),
+          body: JSON.stringify({
+            promptText: promptLayer1,
+            promptTextFallback: promptLayer2,
+          }),
         });
         const data = await res.json();
 
         if (!res.ok) {
           console.error("❌ API error:", data);
           return null;
+        }
+
+        if (data.usedLayer) {
+          console.log(`✅ Report built with university layer ${data.usedLayer}`);
         }
 
         return data.report || null;
@@ -159,9 +189,38 @@ export function QuizScreen() {
               className="quiz-option"
               onClick={() => handleAnswer(opt)}
             >
-              {opt.answers[0]}
+              {opt}
             </AnswerButton>
           ))}
+        </div>
+      )}
+
+      {current.type === "multi-select" && current.options && (
+        <div>
+          <p className="text-sm text-[#153060]/80 mb-4 text-left">
+            {t("multiSelectHint")}
+          </p>
+          <div className="grid grid-cols-1 gap-4">
+            {current.options.map((opt: Option, i: number) => (
+              <AnswerButton
+                key={i}
+                className="quiz-option"
+                selected={selectedOptions.includes(opt)}
+                onClick={() => toggleMultiSelectOption(opt)}
+              >
+                {opt}
+              </AnswerButton>
+            ))}
+          </div>
+          <div className="flex justify-center mt-4">
+            <Button
+              className="btn btn-primary w-full sm:w-auto"
+              disabled={selectedOptions.length === 0}
+              onClick={() => handleAnswer(selectedOptions)}
+            >
+              {t("buttonNext")}
+            </Button>
+          </div>
         </div>
       )}
 

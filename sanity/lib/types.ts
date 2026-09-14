@@ -46,7 +46,7 @@ export interface Question {
   language?: string  // Only for SimpleQuestion
   description?: string | LocalizedText
   type: 'single' | 'multiple' | 'text'
-  answers?: Answer[] | Array<{ text: string; value?: string; tags?: string[] }>  // SimpleQuestion has different format
+  answers?: Answer[] | Array<{ text: string; value?: string }>  // SimpleQuestion has different format
   required: boolean
   order?: number  // Optional now
 }
@@ -68,7 +68,6 @@ export interface AnalyticsSettings {
 }
 
 export interface RolePrompts {
-  student_grade_9?: LocalizedText
   student_grade_11?: LocalizedText
   student_bachelor?: LocalizedText
   parent?: LocalizedText
@@ -88,11 +87,6 @@ export interface QuizStartScreen {
 }
 
 export interface RoleQuestions {
-  student_grade_9?: {
-    en?: Array<Question | { _ref: string; _type: string }>
-    ru?: Array<Question | { _ref: string; _type: string }>
-    ua?: Array<Question | { _ref: string; _type: string }>
-  }
   student_grade_11?: {
     en?: Array<Question | { _ref: string; _type: string }>
     ru?: Array<Question | { _ref: string; _type: string }>

@@ -13,7 +13,7 @@ export function EducationLevelSelection() {
   if (loading) return <p>Loading...</p>;
   if (error || !questions || !role) return <p>Error loading questions</p>;
 
-  const studentLevels = ["grade_9", "grade_11", "bachelor"] as const;
+  const studentLevels = ["grade_11", "bachelor"] as const;
   const levels =
     role === "student"
       ? studentLevels.filter(

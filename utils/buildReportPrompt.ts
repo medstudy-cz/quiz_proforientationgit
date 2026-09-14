@@ -4,6 +4,7 @@ import type { Locale } from "@/dictionaries/promptsDictionary";
 import { noPlaceholdersInstruction } from "@/dictionaries/promptsDictionary";
 import { buildPrompt } from "@/utils/buildPrompt";
 import { buildSanityPrompt } from "@/services/sanityAdapter";
+import type { UniversityLayer } from "@/utils/formatUniversitiesForPrompt";
 
 function withOutputGuards(prompt: string): string {
   return `${prompt}\n\n---\n\n${noPlaceholdersInstruction}`;
@@ -23,12 +24,17 @@ function hasNonEmptySanityPrompt(
       : (`student_${level}` as keyof typeof prompts);
   const block = prompts[key];
   if (!block || typeof block !== "object") return false;
-  const text = block[locale];
-  return typeof text === "string" && text.trim().length > 0;
+  // Prefer Russian template; fall back to locale / any non-empty
+  const text =
+    (typeof block.ru === "string" && block.ru.trim()) ||
+    (typeof block[locale] === "string" && block[locale].trim()) ||
+    "";
+  return text.length > 0;
 }
 
 /**
- * Промпт для звіту: спочатку з Sanity (`quiz.aiPrompts`), інакше з `promptsDictionary.ts`.
+ * Промпт для отчёта: Sanity (`quiz.aiPrompts`) или `promptsDictionary.ts`.
+ * universityLayer: 1 — curated, 2 — расширенный каталог.
  */
 export async function buildReportPrompt(params: {
   sanityQuiz: Quiz | null;
@@ -36,8 +42,16 @@ export async function buildReportPrompt(params: {
   level: string;
   answers: Answer[];
   locale: Locale;
+  universityLayer?: UniversityLayer;
 }): Promise<string> {
-  const { sanityQuiz, role, level, answers, locale } = params;
+  const {
+    sanityQuiz,
+    role,
+    level,
+    answers,
+    locale,
+    universityLayer = 1,
+  } = params;
   const loc = locale as "en" | "ru" | "ua";
 
   if (sanityQuiz && hasNonEmptySanityPrompt(sanityQuiz, role, level, loc)) {
@@ -49,7 +63,9 @@ export async function buildReportPrompt(params: {
           level,
           answers,
           loc,
-          true
+          true,
+          undefined,
+          universityLayer
         )
       );
     } catch (err) {
@@ -60,5 +76,7 @@ export async function buildReportPrompt(params: {
     }
   }
 
-  return withOutputGuards(buildPrompt({ role, level, answers, locale }));
+  return withOutputGuards(
+    buildPrompt({ role, level, answers, locale, universityLayer })
+  );
 }

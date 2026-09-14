@@ -44,12 +44,17 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Single Choice', value: 'single' },
-          { title: 'Multiple Choice', value: 'multiple' },
-          { title: 'Text Input', value: 'text' },
+          { title: 'Single Choice (один ответ)', value: 'single' },
+          {
+            title: 'Multiple Choice (несколько ответов)',
+            value: 'multiple',
+          },
+          { title: 'Text Input (свободный текст)', value: 'text' },
         ],
       },
       initialValue: 'single',
+      description:
+        'Multiple Choice — пользователь может отметить несколько вариантов и нажать «Далее».',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -72,32 +77,14 @@ export default defineType({
               type: 'string',
               description: 'Internal value for this answer',
             },
-            {
-              name: 'tags',
-              title: 'Tags',
-              type: 'array',
-              of: [{ type: 'string' }],
-              description: 'Tags for categorization (e.g., MED, TECH, HUM)',
-              options: {
-                list: [
-                  { title: 'Medical', value: 'MED' },
-                  { title: 'Technical', value: 'TECH' },
-                  { title: 'Humanities', value: 'HUM' },
-                  { title: 'Economics', value: 'ECO' },
-                  { title: 'Natural Sciences', value: 'NAT' },
-                ],
-              },
-            },
           ],
           preview: {
             select: {
               title: 'text',
-              tags: 'tags',
             },
-            prepare({ title, tags }: any) {
+            prepare({ title }: any) {
               return {
                 title: title,
-                subtitle: tags ? tags.join(', ') : '',
               }
             },
           },
@@ -120,9 +107,15 @@ export default defineType({
       type: 'type',
     },
     prepare({ title, language, type }: any) {
+      const typeLabel =
+        type === 'multiple'
+          ? 'multi-select'
+          : type === 'text'
+            ? 'text'
+            : 'single'
       return {
         title: title,
-        subtitle: `[${language?.toUpperCase()}] ${type}`,
+        subtitle: `[${language?.toUpperCase()}] ${typeLabel}`,
       }
     },
   },
