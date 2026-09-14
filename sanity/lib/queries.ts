@@ -51,35 +51,6 @@ export const quizWithOrderedQuestionsQuery = groq`
     metaData,
     analytics,
     "questions": {
-      "student_grade_9": {
-        "en": questions.student_grade_9.en[]-> {
-          _id,
-          title,
-          language,
-          description,
-          type,
-          answers,
-          required
-        },
-        "ru": questions.student_grade_9.ru[]-> {
-          _id,
-          title,
-          language,
-          description,
-          type,
-          answers,
-          required
-        },
-        "ua": questions.student_grade_9.ua[]-> {
-          _id,
-          title,
-          language,
-          description,
-          type,
-          answers,
-          required
-        }
-      },
       "student_grade_11": {
         "en": questions.student_grade_11.en[]-> {
           _id,

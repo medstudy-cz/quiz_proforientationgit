@@ -13,7 +13,6 @@ import type { Quiz as SanityQuiz } from "@/sanity/lib/types";
 export type Answer = {
   question: string;
   answer: string;
-  tags?: string[];
 };
 
 
