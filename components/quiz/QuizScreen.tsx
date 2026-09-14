@@ -8,7 +8,6 @@ import { useLocale, useTranslations } from "next-intl";
 import type { Option } from "@/dictionaries/quizDictionary";
 import { trackEvent } from "@/utils/analytics";
 import { sendEventToServer } from "@/utils/sendEvent";
-import { buildReportPrompt } from "@/utils/buildReportPrompt";
 
 export function QuizScreen() {
   const {
@@ -105,25 +104,15 @@ export function QuizScreen() {
 
     const reportPromise = (async () => {
       try {
-        const promptParams = {
-          sanityQuiz,
-          role: role!,
-          level: level!,
-          answers: updatedAnswers,
-          locale: locale as "en" | "ua" | "ru",
-        };
-
-        const [promptLayer1, promptLayer2] = await Promise.all([
-          buildReportPrompt({ ...promptParams, universityLayer: 1 }),
-          buildReportPrompt({ ...promptParams, universityLayer: 2 }),
-        ]);
-
         const res = await fetch("/api/report", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            promptText: promptLayer1,
-            promptTextFallback: promptLayer2,
+            sanityQuiz,
+            role: role!,
+            level: level!,
+            answers: updatedAnswers,
+            locale: locale as "en" | "ua" | "ru",
           }),
         });
         const data = await res.json();
