@@ -28,3 +28,8 @@ data/universities.report.txt
 coverage
 out
 build
+# Studio / schema authoring — not needed for quiz production image
+app/studio
+sanity.config.ts
+sanity.cli.ts
+sanity/schemas
