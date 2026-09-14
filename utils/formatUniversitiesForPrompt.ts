@@ -1,5 +1,6 @@
-import universitiesLayer1 from "@/data/universities.json";
-import universitiesLayer2 from "@/data/universities-layer2.json";
+import "server-only";
+import fs from "fs";
+import path from "path";
 
 export type UniversityLayer = 1 | 2;
 
@@ -52,14 +53,25 @@ function isUseful(value?: string | null): value is string {
   return !EMPTY_MARKERS.has(value.trim().toLowerCase());
 }
 
+function readDataJson<T>(fileName: string): T {
+  const filePath = path.join(process.cwd(), "data", fileName);
+  return JSON.parse(fs.readFileSync(filePath, "utf8")) as T;
+}
+
+let cachedLayer1: string | null = null;
+let cachedLayer2: string | null = null;
+
 function formatLayer1(): string {
-  const { universities } = universitiesLayer1 as UniversitiesLayer1File;
+  if (cachedLayer1) return cachedLayer1;
+
+  const { universities } = readDataJson<UniversitiesLayer1File>("universities.json");
 
   if (!universities?.length) {
-    return "(слой 1 пуст — заполните data/universities.json)";
+    cachedLayer1 = "(слой 1 пуст — заполните data/universities.json)";
+    return cachedLayer1;
   }
 
-  return universities
+  cachedLayer1 = universities
     .map((e) => {
       const loc = e.city ? ` (${e.city})` : "";
       const lines = [
@@ -86,16 +98,21 @@ function formatLayer1(): string {
       return lines.join("\n");
     })
     .join("\n\n");
+
+  return cachedLayer1;
 }
 
 function formatLayer2(): string {
-  const entries = universitiesLayer2 as UniversityLayer2Entry[];
+  if (cachedLayer2) return cachedLayer2;
+
+  const entries = readDataJson<UniversityLayer2Entry[]>("universities-layer2.json");
 
   if (!entries?.length) {
-    return "(слой 2 пуст — проверьте data/universities-layer2.json)";
+    cachedLayer2 = "(слой 2 пуст — проверьте data/universities-layer2.json)";
+    return cachedLayer2;
   }
 
-  return entries
+  cachedLayer2 = entries
     .map((e) => {
       const lines = [`### ${e.facultyAndUni}`, `Направления: ${e.specialty}`];
 
@@ -113,6 +130,8 @@ function formatLayer2(): string {
       return lines.join("\n");
     })
     .join("\n\n");
+
+  return cachedLayer2;
 }
 
 /**

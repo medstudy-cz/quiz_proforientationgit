@@ -1,9 +1,10 @@
+import "server-only";
 import type { Quiz } from "@/sanity/lib/types";
 import type { Answer } from "@/context/QuizContext";
 import type { Locale } from "@/dictionaries/promptsDictionary";
 import { noPlaceholdersInstruction } from "@/dictionaries/promptsDictionary";
 import { buildPrompt } from "@/utils/buildPrompt";
-import { buildSanityPrompt } from "@/services/sanityAdapter";
+import { buildSanityPrompt } from "@/services/buildSanityPrompt";
 import type { UniversityLayer } from "@/utils/formatUniversitiesForPrompt";
 
 function withOutputGuards(prompt: string): string {

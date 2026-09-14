@@ -1,3 +1,4 @@
+import "server-only";
 import { promptsData, reportLanguageInstruction, Locale, PromptKey } from "@/dictionaries/promptsDictionary";
 import type { Answer } from "@/context/QuizContext";
 import { formatAnswers } from "./formatAnswers";

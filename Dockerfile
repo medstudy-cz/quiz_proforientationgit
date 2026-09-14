@@ -3,13 +3,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-RUN ls -la
-RUN ls -la components || echo "NO components"
-RUN ls -la components/quiz || echo "NO quiz"
- 
-COPY package.json package-lock.json ./ 
+# Avoid OOM on self-hosted runners during `next build`
+ENV NODE_OPTIONS=--max-old-space-size=4096
+ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npm install
+COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
@@ -20,5 +18,9 @@ FROM node:20-alpine
 
 WORKDIR /app
 ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder /app ./
+
+EXPOSE 3000
+CMD ["node", "node_modules/next/dist/bin/next", "start"]
